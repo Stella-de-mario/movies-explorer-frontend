@@ -1,0 +1,9 @@
+.App {
+  min-height: 100vh;
+  min-width: 320px;
+  max-width: 1440px;
+  justify-content: flex-start;
+  display: flex;
+  flex-direction: column;
+  margin: 0 auto;
+}

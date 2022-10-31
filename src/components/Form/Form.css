@@ -1,0 +1,22 @@
+.form {
+  width: 396px;
+  height: 335px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  box-sizing: border-box;
+  padding-bottom: 69px;
+  margin: 0;
+}
+
+.form:focus {
+  outline: none;
+}
+
+@media screen and (max-width: 450px) {
+  .form {
+    width: 260px;
+    height: 423px;
+    padding-bottom: 157px;
+  }
+}

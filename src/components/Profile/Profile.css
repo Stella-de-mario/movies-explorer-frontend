@@ -1,0 +1,138 @@
+.profile {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  margin: 0 auto;
+  padding-top: 74px;
+  padding-bottom: 70px;
+}
+
+.profile__form {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  row-gap: 16px;
+  justify-content: space-between;
+}
+
+.profile__title {
+  text-align: center;
+  font-weight: 500;
+  font-size: 24px;
+  line-height: 1.21;
+  margin: 0;
+}
+.profile__fields {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding-bottom: 100px;
+  height: 70%;
+}
+
+.profile__field {
+  font-weight: 400;
+  font-size: 11px;
+  line-height: 1.18;
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  padding: 16px 0 17px;
+  border-bottom: 1px solid #424242;
+}
+
+.profile__text {
+  font-size: 11px;
+  line-height: 1.18;
+  font-weight: 500;
+  padding: 0;
+}
+
+.profile__input {
+  font-weight: 500;
+  font-size: 11px;
+  line-height: 1.18;
+  text-align: right;
+  width: 80%;
+  border: none;
+  color: #ffffff;
+  background: #202020;
+  transition: background-color 0.2s linear;
+}
+
+.profile__input:focus {
+  border: 1px solid #ee3465;
+  outline: none;
+  transition: background-color 0.2s linear;
+}
+
+.profile__input:hover {
+  opacity: 0.8;
+}
+
+.profile__button-container {
+  display: flex;
+  flex-direction: column;
+  margin-top: 204px;
+  gap: 18px;
+}
+
+.profile__button {
+  font-weight: 400;
+  font-size: 13px;
+  line-height: 16px;
+  text-align: center;
+  border: none;
+  background: #202020;
+  padding: 0;
+  margin: 0;
+  cursor: pointer;
+}
+
+.profile__button:hover {
+  transition: opacity 0.5s linear;
+  opacity: 0.5;
+}
+
+.profile__button_edit {
+  color: #ffffff;
+}
+
+.profile__button_signout {
+  font-weight: 500;
+  color: #ee3465;
+}
+
+@media screen and (max-width: 768px) {
+  .profile {
+    padding: 236px 0 269px;
+  }
+
+  .profile__title {
+    margin-bottom: 80px;
+  }
+
+  .profile__button-container {
+    margin-top: 190px;
+  }
+}
+
+@media screen and (max-width: 450px) {
+  .profile {
+    height: 76.5vh;
+    padding: 70px 0 40px;
+  }
+
+  .profile__title {
+    margin-bottom: 60px;
+  }
+
+  .profile__button-container {
+    margin-top: 368px;
+  }
+
+  .profile__button {
+    font-size: 12px;
+    line-height: 15px;
+  }
+}
