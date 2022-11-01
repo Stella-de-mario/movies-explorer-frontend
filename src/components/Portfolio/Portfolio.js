@@ -12,10 +12,8 @@ function Portfolio() {
             target="_blank"
             rel="noreferrer"
           >
-            <p className="portfolio__link-title">
-              Статичный сайт
-              <span>↗</span>
-            </p>
+            Статичный сайт
+            <div className="portfolio__link-icon"></div>
           </a>
         </li>
         <li className="portfolio__link">
@@ -25,10 +23,8 @@ function Portfolio() {
             target="_blank"
             rel="noreferrer"
           >
-            <p className="portfolio__link-title">
-              Адаптивный сайт
-              <span>↗</span>
-            </p>
+            Адаптивный сайт
+            <div className="portfolio__link-icon"></div>
           </a>
         </li>
         <li className="portfolio__link">
@@ -38,10 +34,8 @@ function Portfolio() {
             target="_blank"
             rel="noreferrer"
           >
-            <p className="portfolio__link-title">
-              Одностраничное приложение
-              <span>↗</span>
-            </p>
+            Одностраничное приложение
+            <div className="portfolio__link-icon"></div>
           </a>
         </li>
       </ul>

@@ -18,7 +18,7 @@ function Login() {
           type="email"
           name="email"
           required
-          error="Что-то пошло не так..."
+          error=" "
           placeholder="Email"
         />
         <AuthContainer
@@ -28,7 +28,7 @@ function Login() {
           minLength="6"
           required
           placeholder="Пароль"
-          error="Что-то пошло не так..."
+          error=" "
         />
       </Form>
       <ButtonSubmit buttonText="Войти" />

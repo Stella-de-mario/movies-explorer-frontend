@@ -10,7 +10,7 @@ function Footer() {
       <div className="footer__container">
         <p className="footer__copyright">&copy; {new Date().getFullYear()}</p>
         <ul className="footer__links">
-          <li className="footer__links-item">
+          <li className="footer__links_item">
             <a
               className="footer__link"
               href="https://practicum.yandex.ru"
@@ -20,7 +20,7 @@ function Footer() {
               Яндекс.Практикум
             </a>
           </li>
-          <li className="footer__links-item">
+          <li className="footer__links_item">
             <a
               className="footer__link"
               href="https://github.com/Stella-de-mario"

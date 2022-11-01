@@ -7,7 +7,7 @@ function ButtonSubmit({ text, isDisabled }) {
       className="button"
       type="submit"
       disabled={isDisabled}
-      buttonText={text}
+      text={text}
     >
       {text}
     </button>

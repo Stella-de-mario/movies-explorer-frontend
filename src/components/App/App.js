@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Switch, Route, useLocation } from "react-router-dom";
+import { Routes, Route, useLocation } from "react-router-dom";
 import { CurrentUserContext } from "../../contexts/CurrentUserContext";
 import "./App.css";
 import Main from "../Main/Main";
@@ -15,7 +15,6 @@ import PageNotFound from "../PageNotFound/PageNotFound";
 function App() {
   const { pathname } = useLocation();
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  // eslint-disable-next-line no-unused-vars
   const [currentUser, setCurrentUser] = useState({});
 
   function handleAuthorizer() {
@@ -33,29 +32,20 @@ function App() {
         ) : (
           ""
         )}
-        <Switch>
-          <Route exact path="/">
-            <Main />
-          </Route>
-          <Route path="/movies">
-            <Movies />
-          </Route>
-          <Route exact path="/saved-movies">
-            <SavedMovies />
-          </Route>
-          <Route path="/profile">
-            <Profile />
-          </Route>
-          <Route path="/signin">
-            <Login />
-          </Route>
-          <Route path="/signup">
-            <Register />
-          </Route>
-          <Route path="*">
-            <PageNotFound />
-          </Route>
-        </Switch>
+        <Routes>
+          <Route exact path="/"
+          element={ 
+                <Main isLoggedIn={isLoggedIn}/> 
+              } />
+          <Route path="/movies" element={<Movies />}
+           />
+          <Route exact path="/saved-movies"  element={<SavedMovies />}
+          />
+          <Route path="/profile" element={<Profile />} />
+          <Route path="/signin" element={<Login />} />
+          <Route path="/signup" element={<Register />} />
+          <Route path="*" element={<PageNotFound />} />
+        </Routes>
         {pathname === "/" ||
         pathname === "/movies" ||
         pathname === "/saved-movies" ? (

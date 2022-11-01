@@ -21,14 +21,14 @@ function Register() {
           maxLength="40"
           required
           placeholder="Имя"
-          error="Что-то пошло не так..."
+          error=" "
         />
         <AuthContainer
           label="E-mail"
           type="email"
           name="email"
           required
-          error="Что-то пошло не так..."
+          error=" "
           placeholder="Email"
         />
         <AuthContainer
@@ -41,7 +41,7 @@ function Register() {
           error="Что-то пошло не так..."
         />
       </Form>
-      <ButtonSubmit buttonText="Зарегистрироваться" />
+      <ButtonSubmit text="Зарегистрироваться" />
     </Auth>
   );
 }

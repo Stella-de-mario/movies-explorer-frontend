@@ -75,7 +75,7 @@
     opacity: 0.5;
   }
 
-  .popup__link-active {
+  .popup__link_active {
     border-bottom: 2px solid #ffffff;
     padding-bottom: 4px;
   }
@@ -126,7 +126,7 @@
     padding-bottom: 7px;
   }
 
-  .popup__link-active {
+  .popup__link_active {
     padding-bottom: 5px;
   }
 
