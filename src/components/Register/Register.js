@@ -5,6 +5,7 @@ import Form from "../Form/Form";
 import ButtonSubmit from "../ButtonSubmit/ButtonSubmit";
 
 function Register() {
+
   return (
     <Auth
       title="Добро пожаловать!"

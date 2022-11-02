@@ -26,9 +26,9 @@
 
 @media screen and (max-width: 450px) {
   .button {
+    width: 260px;
     font-size: 12px;
     line-height: 1.25;
-    width: 260px;
     padding-top: 15px;
   }
 }

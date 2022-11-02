@@ -31,7 +31,7 @@ function Login() {
           error=" "
         />
       </Form>
-      <ButtonSubmit buttonText="Войти" />
+      <ButtonSubmit text="Войти" />
     </Auth>
   );
 }

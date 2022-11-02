@@ -19,8 +19,11 @@ function NavigationMain({ isOpen, onClose }) {
               <NavLink
                 exact
                 to="/"
-                className="popup__link"
-                activeClassName="popup__link_active"
+                className={({ isActive }) =>
+                isActive
+                ? "popup__link_active"
+                  : "popup__link"
+              }
               >
                 Главная
               </NavLink>
@@ -39,8 +42,11 @@ function NavigationMain({ isOpen, onClose }) {
             <li className="popup__list-item">
               <NavLink
                 to="/saved-movies"
-                className="popup__link"
-                activeClassName="popup__link_active"
+                className={({ isActive }) =>
+                isActive
+                ? "popup__link_active"
+                  : "popup__link"
+              }
               >
                 Сохранённые фильмы
               </NavLink>

@@ -17,11 +17,8 @@ function Profile({ isLoggedIn }) {
             abel="Имя"
             name="name"
             type="text"
-            minLength="2"
-            maxLength="40"
             required
             placeholder="Имя"
-            error="Что-то пошло не так..."
           ></input>
         </div>
         <div className="profile__field">
@@ -32,7 +29,6 @@ function Profile({ isLoggedIn }) {
             type="email"
             name="email"
             required
-            error="Что-то пошло не так..."
             placeholder="Email"
           ></input>
         </div>

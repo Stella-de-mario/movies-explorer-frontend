@@ -8,12 +8,10 @@ const MoviesCard = ({ card }) => {
 
   function handleSaveMovies() {
     setSaved(!saved);
-    console.log("Фильм сохранён");
   }
 
   function handleDeleteSaveMovies() {
     setSaved(false);
-    console.log("Фильм удалён");
   }
 
   function getDurationMovies(mins) {

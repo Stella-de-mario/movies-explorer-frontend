@@ -15,6 +15,7 @@
 }
 
 .auth-container__input {
+  padding: 15px;
   height: 46px;
   font-weight: 500;
   font-size: 13px;
@@ -24,7 +25,6 @@
   border-radius: 8px;
   border: none;
   box-sizing: border-box;
-  padding: 15px;
 }
 
 .auth-container__input:focus {
