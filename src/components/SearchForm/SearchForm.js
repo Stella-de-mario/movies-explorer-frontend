@@ -6,7 +6,7 @@ function SearchForm() {
     return (
       <section className='search-form'>
          <form className='search-form__form'>
-            <label className='search-form__label' for='movie'>
+         <label className='search-form__label' htmlFor='movie'>
                <div className='search-form__icon_find_inactive'></div>
             </label>
             <input

@@ -2,16 +2,15 @@ import React from "react";
 import SearchForm from "../SearchForm/SearchForm";
 import MoviesCardList from "../MoviesCardList/MoviesCardList";
 import "./Movies.css";
-import Footer from "../Footer/Footer";
+import { initialMovies } from '../../utils/initialMovies';
 
 function Movies({ movies }) {
   return (
     <>
       <main className="movies">
         <SearchForm />
-        <MoviesCardList movies={movies} />
+        <MoviesCardList initialMovies={initialMovies} />
       </main>
-      <Footer />
     </>
   );
 }

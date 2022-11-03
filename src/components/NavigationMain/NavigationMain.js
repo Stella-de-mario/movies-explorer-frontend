@@ -17,7 +17,6 @@ function NavigationMain({ isOpen, onClose }) {
           <ul className="popup__list">
             <li className="popup__list-item">
               <NavLink
-                exact
                 to="/"
                 className={({ isActive }) =>
                 isActive

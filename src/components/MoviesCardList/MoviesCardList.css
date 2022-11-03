@@ -1,10 +1,10 @@
 .movies-cards {
-  margin: 0 auto;
-  padding-top: 70px;
   display: flex;
   flex-direction: column;
   max-width: 1140px;
   align-items: center;
+  padding: 70px 0 0;
+  margin: 0 auto;
 }
 
 .movies-cards__container {
@@ -15,14 +15,12 @@
   padding-bottom: 30px;
 }
 
-.movies-cards__containter__button {
-  margin: 50px 0 70px;
+.movies-cards__button-container {
+  padding: 50px 0 70px;
   box-sizing: border-box;
 }
 
 .movies-cards__button {
-  padding: 11px 0 9px;
-  margin-bottom: 10px;
   font-weight: 500;
   font-size: 12px;
   line-height: 15px;
@@ -31,7 +29,9 @@
   border: none;
   color: #ffffff;
   background-color: #2f2f2f;
+  padding: 11px 0 9px;
   cursor: pointer;
+  margin-bottom: 10px;
 }
 
 .movies-cards__button:hover {
@@ -41,22 +41,21 @@
 
 @media screen and (max-width: 768px) {
   .movies-cards {
-    max-width: 708px;
+     max-width: 708px;
   }
 }
 
 @media screen and (max-width: 430px) {
   .movies-cards {
-    max-width: 300px;
-    padding-top: 40px;
+     max-width: 300px;
+     padding-top: 40px;
   }
 
   .movies-cards__container {
-    gap: 16px;
+     gap: 16px;
   }
 
   .movies-cards__button {
-    width: 240px;
-    margin: 0;
+     width: 240px;
   }
 }

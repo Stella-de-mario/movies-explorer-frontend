@@ -2,11 +2,11 @@ import React from "react";
 import "./MoviesCardList.css";
 import MoviesCard from "../MoviesCard/MoviesCard";
 
-function MoviesCardList({ cards }) {
-  const cardsElement = cards.map((card) => (
-    <MoviesCard key={card.id} movieCard={card} />
+function MoviesCardList({ initialMovies }) {
+  const cardsElement = initialMovies.map((movie) => (
+    <MoviesCard key={movie.id} movieCard={movie} />
   ));
-
+  
   return (
     <section className="movies-cards">
       <ul className="movies-cards__container">{cardsElement}</ul>
