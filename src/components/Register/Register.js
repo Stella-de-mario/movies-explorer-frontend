@@ -1,49 +1,66 @@
 import React from "react";
-import AuthContainer from "../AuthContainer/AuthContainer";
-import Auth from "../Auth/Auth";
-import Form from "../Form/Form";
-import ButtonSubmit from "../ButtonSubmit/ButtonSubmit";
+import AuthContainer from "../AuthContainer/AuthContainer.js";
+import '../AuthContainer/AuthContainer.css';
 
 function Register() {
 
   return (
-    <Auth
-      title="Добро пожаловать!"
-      subtitle="Уже зарегистрированы?"
+    <AuthContainer header="Добро пожаловать!"
+    submit="Зарегистрироваться"
+      text="Уже зарегистрированы?"
       link="Войти"
       route="/signin"
     >
-      <Form>
-        <AuthContainer
-          label="Имя"
+      <label className="auth-container__item">
+        <p className="auth-container__text">
+          Имя
+        </p>
+        <input
+        className="auth-container__field"
           name="register-name"
           type="text"
           minLength="2"
           maxLength="40"
           required
           placeholder="Имя"
-          error=" "
         />
-        <AuthContainer
-          label="E-mail"
+              <span className="auth-container__error">
+          Что-то пошло не так...
+        </span>
+        </label>
+        <label className="auth-container__item">
+        <p className="auth-container__text">
+          E-mail
+        </p>
+          <input 
+          className="auth-container__field"
           type="email"
           name="email"
           required
           error=" "
           placeholder="Email"
         />
-        <AuthContainer
-          label="Пароль"
+         <span className="auth-container__error">
+          Что-то пошло не так...
+        </span>
+      </label>
+      <label className="auth-container__item">
+        <p className="auth-container__text">
+          Пароль
+        </p>
+        <input
+          className="auth-container__field auth-container__field_error"
           type="password"
           name="password"
           minLength="6"
           required
           placeholder="Пароль"
-          error="Что-то пошло не так..."
         />
-      </Form>
-      <ButtonSubmit text="Зарегистрироваться" />
-    </Auth>
+     <span className="auth-container__error auth-container__error_visible">
+          Что-то пошло не так...
+        </span>
+      </label>
+    </AuthContainer>
   );
 }
 

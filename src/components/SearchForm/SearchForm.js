@@ -6,9 +6,8 @@ function SearchForm() {
     return (
       <section className='search-form'>
          <form className='search-form__form'>
-         <label className='search-form__label' htmlFor='movie'>
+         <div className="search-form__container">
                <div className='search-form__icon_find_inactive'></div>
-            </label>
             <input
                className='search-form__input'
                id='movie'
@@ -17,9 +16,11 @@ function SearchForm() {
                placeholder='Фильм'
                required
             />
-            <button className='search-form__button_find' type='submit'>
-            </button>
+            <button className='search-form__button_find' type='submit' />
+            </div>
+        <div className="search-form__checkbox">
             <FilterCheckbox />
+            </div>
          </form>
       </section>
    )

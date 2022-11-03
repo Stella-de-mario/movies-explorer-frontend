@@ -2,9 +2,9 @@ import React from "react";
 import "./MoviesCardList.css";
 import MoviesCard from "../MoviesCard/MoviesCard";
 
-function MoviesCardList({ initialMovies }) {
-  const cardsElement = initialMovies.map((movie) => (
-    <MoviesCard key={movie.id} movieCard={movie} />
+function MoviesCardList({ movies }) {
+  const cardsElement = movies.map((movie) => (
+    <MoviesCard key={movie._id} movieCard={movie} />
   ));
   
   return (

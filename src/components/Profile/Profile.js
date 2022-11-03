@@ -1,11 +1,8 @@
 import React from "react";
 import "./Profile.css";
-import Header from '../Header/Header';
 
-function Profile({ isLoggedIn }) {
+function Profile() {
   return (
-    <>
-    <Header isLoggedIn={isLoggedIn} />
     <section className="profile">
       <form className="profile__form">
         <h2 className="profile__title">Привет, Виталий!</h2>
@@ -20,6 +17,9 @@ function Profile({ isLoggedIn }) {
             required
             placeholder="Имя"
           ></input>
+          <span className="profile__error">
+              Что-то пошло не так...
+            </span>
         </div>
         <div className="profile__field">
           <p className="profile__text">E-mail</p>
@@ -31,6 +31,9 @@ function Profile({ isLoggedIn }) {
             required
             placeholder="Email"
           ></input>
+          <span className="profile__error">
+              Что-то пошло не так...
+            </span>
         </div>
         </div>
         <div className="profile__button-container">
@@ -49,7 +52,6 @@ function Profile({ isLoggedIn }) {
         </div>
       </form>
     </section>
-    </>
   );
 }
 

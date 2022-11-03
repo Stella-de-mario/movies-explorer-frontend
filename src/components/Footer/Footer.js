@@ -9,6 +9,7 @@ function Footer() {
       </h3>
       <div className="footer__container">
         <p className="footer__copyright">&copy; {new Date().getFullYear()}</p>
+        <nav className="footer__navigation">      
         <ul className="footer__links">
           <li className="footer__links_item">
             <a
@@ -31,6 +32,7 @@ function Footer() {
             </a>
           </li>
         </ul>
+        </nav>
       </div>
     </footer>
   );

@@ -2,12 +2,13 @@ import React from 'react';
 import './SavedMovies.css';
 import SearchForm from '../SearchForm/SearchForm';
 import MoviesCardList from '../MoviesCardList/MoviesCardList';
+import { savedMovies } from '../../utils/initialMovies';
 
-function SavedMovies({ moviesList }) {
+function SavedMovies() {
    return (
          <main className='saved-movies'>
             <SearchForm />
-            <MoviesCardList moviesList={moviesList} />
+            <MoviesCardList movies={savedMovies} />
          </main>
    )
 }

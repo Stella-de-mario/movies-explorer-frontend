@@ -12,6 +12,7 @@ import Register from "../Register/Register";
 import Login from "../Login/Login";
 import PageNotFound from "../PageNotFound/PageNotFound";
 
+
 function App() {
   const { pathname } = useLocation();
   const [isLoggedIn, setIsLoggedIn] = useState(false);

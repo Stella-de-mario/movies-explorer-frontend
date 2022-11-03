@@ -1,17 +1,14 @@
 import React from "react";
 import SearchForm from "../SearchForm/SearchForm";
 import MoviesCardList from "../MoviesCardList/MoviesCardList";
-import "./Movies.css";
 import { initialMovies } from '../../utils/initialMovies';
 
-function Movies({ movies }) {
+function Movies() {
   return (
-    <>
-      <main className="movies">
+      <section className="movies">
         <SearchForm />
-        <MoviesCardList initialMovies={initialMovies} />
-      </main>
-    </>
+        <MoviesCardList movies={initialMovies} />
+      </section>
   );
 }
 

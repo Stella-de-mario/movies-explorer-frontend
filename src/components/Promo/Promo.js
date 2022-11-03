@@ -1,14 +1,15 @@
 import React from "react";
 import "./Promo.css";
 import NavTab from "../NavTab/NavTab";
+import HeadingTitle from '../HeadingTitle/HeadingTitle';
 
 function Promo() {
   return (
     <section className="promo">
-      <h1 className="promo__title">
-        Учебный проект студента факультета Веб-разработки.
-      </h1>
+      <div className="promo__container">
+       <HeadingTitle position={'promo'} text="Учебный проект студента факультета Веб-разработки." />
       <NavTab />
+      </div>
     </section>
   );
 }

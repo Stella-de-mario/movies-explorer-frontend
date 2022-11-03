@@ -1,71 +1,72 @@
 import React, { useState } from "react";
 import { Link, NavLink } from "react-router-dom";
 import "./Navigation.css";
-import NavigationMain from "../NavigationMain/NavigationMain";
 
-function Navigation({ isLoggedIn }) {
-  const [isPopupNavigation, setIsPopupNavigation] = useState(false);
+function Navigation() {
+  const [isOpenedMenu, setIsOpenedMenu] = useState(false);
 
-  const openedPopup = () => {
-    setIsPopupNavigation(true);
-  };
-
-  const closePopup = () => {
-    setIsPopupNavigation(false);
-  };
+  function handleMenuButtonClick() {
+    setIsOpenedMenu(!isOpenedMenu);
+  }
 
   return (
-    <>
-      {isLoggedIn ? (
-        <>
-          <div className="navigation">
-            <nav className="navigation__list">
-              <NavLink
-                to="/movies"
-                className="navigation__link"
-                activeClassName="navigation__link-active"
-              >
-                Фильмы
-              </NavLink>
-              <NavLink
-                to="/saved-movies"
-                className="navigation__link"
-                activeClassName="navigation__link-active"
-              >
-                Сохранённые фильмы
-              </NavLink>
-            </nav>
+    <nav className="navigation">
+      <button
+        className="navigation__menu"
+        type="button"
+        aria-label="Меню"
+        onClick={handleMenuButtonClick}
+      />
+      <div
+        className={`navigation__container ${
+          isOpenedMenu
+            ? "navigation__container_opened"
+            : "navigation__container"
+        }`}
+      >
+        <div className="navigation__list">
+          <div className="navigation__list-container">
+            <button
+              className="navigation__menu-close"
+              type="button"
+              aria-label="Закрыть"
+              onClick={handleMenuButtonClick}
+            />
+            <ul className="navigation__links">
+              <li className="navigation__item">
+                <Link className="navigation__link navigation__link_main" to="/">
+                  Главная
+                </Link>
+              </li>
+              <li className="navigation__item">
+                <NavLink
+                  to="/movies"
+                  className="navigation__link"
+                  activeClassName="navigation__link-active"
+                >
+                  Фильмы
+                </NavLink>
+              </li>
+              <li className="navigation__item">
+                <NavLink
+                  to="/saved-movies"
+                  className="navigation__link"
+                  activeClassName="navigation__link-active"
+                >
+                  Сохранённые фильмы
+                </NavLink>
+              </li>
+            </ul>
           </div>
-          <nav className="navigation">
-            <Link to="/profile">
-              <button className="navigation__button" type="button">
-                Аккаунт
-              </button>
-            </Link>
-          </nav>
-          <button
-            className="navigation__button-open"
-            type="button"
-            onClick={openedPopup}
-          />
-        </>
-      ) : (
-        <nav className="navigation">
-          <Link
-            to="/signup"
-            className="navigation__link navigation__link_registr"
+          <NavLink
+            className="navigation__link navigation__link_profile"
+            to="/profile"
           >
-            Регистрация
-          </Link>
-          <Link to="/signin">
-            <button className="navigation__button-signin" type="button">
-              Войти
-            </button>
-          </Link>
-        </nav>
-      )}
-      <NavigationMain isOpen={isPopupNavigation} onClose={closePopup} />
-    </>
+            Аккаунт
+          </NavLink>
+        </div>
+      </div>
+    </nav>
   );
 }
 

@@ -1,10 +1,10 @@
 .profile {
+  margin: 0 auto;
   display: flex;
   justify-content: center;
   align-items: flex-start;
-  margin: 0 auto;
-  padding-top: 74px;
-  padding-bottom: 70px;
+  height: 69.5vh;
+  padding: 74px 0 0;
 }
 
 .profile__form {
@@ -13,6 +13,8 @@
   flex-direction: column;
   row-gap: 16px;
   justify-content: space-between;
+  width: 410px;
+  max-width: 100%;
 }
 
 .profile__title {
@@ -22,6 +24,7 @@
   line-height: 1.21;
   margin: 0;
 }
+
 .profile__fields {
   display: flex;
   flex-direction: column;
@@ -39,6 +42,9 @@
   justify-content: space-between;
   padding: 16px 0 17px;
   border-bottom: 1px solid #424242;
+}
+.profile__field:last-of-type {
+  border: none;
 }
 
 .profile__text {
@@ -61,13 +67,34 @@
 }
 
 .profile__input:focus {
-  border: 1px solid #ee3465;
+  background-color: #303030;
   outline: none;
   transition: background-color 0.2s linear;
 }
 
 .profile__input:hover {
   opacity: 0.8;
+}
+
+.profile__input_error {
+  color: #EE3465;
+}
+
+.profile__error {
+  visibility: hidden;
+  font-weight: 400;
+  font-size: 10px;
+  line-height: 1.2;
+  color: #EE3465;
+  position: absolute;
+  top: calc(100% + 1px);
+  right: 0;
+  bottom: 0;
+  transition: 0.3s;
+}
+
+.profile__error_visible {
+  visibility: visible;
 }
 
 .profile__button-container {
@@ -90,8 +117,18 @@
 }
 
 .profile__button:hover {
-  transition: opacity 0.5s linear;
-  opacity: 0.5;
+  transition: opacity 0.3s linear;
+  opacity: 0.8;
+}
+
+.profile__button_disabled {
+  cursor: default;
+  color: #8B8B8B;
+  transition: none;
+}
+
+.profile__button_disabled:hover {
+  opacity: 1;
 }
 
 .profile__button_edit {
@@ -106,14 +143,11 @@
 @media screen and (max-width: 768px) {
   .profile {
     padding: 236px 0 269px;
+    height: 44vh;
   }
 
-  .profile__title {
-    margin-bottom: 80px;
-  }
-
-  .profile__button-container {
-    margin-top: 190px;
+  .profile__fields {
+    padding-bottom: 113px;
   }
 }
 
@@ -122,13 +156,15 @@
     height: 76.5vh;
     padding: 70px 0 40px;
   }
-
-  .profile__title {
-    margin-bottom: 60px;
+  
+  .profile__form {
+    width: 260px;
+    max-width: 100%;
   }
 
-  .profile__button-container {
-    margin-top: 368px;
+  .profile__fields {
+    height: 70%;
+    padding-bottom: 300px;
   }
 
   .profile__button {

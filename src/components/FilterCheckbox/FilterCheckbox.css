@@ -1,80 +1,75 @@
 .filter-checkbox {
   display: flex;
   justify-content: center;
-  align-items: center;
-  height: 40px;
-  background-color: #2f2f2f;
-  border-left: 1px solid #505050;
-  padding: 0;
-}
-
-.filter-checkbox__input {
-  position: relative;
-  width: 36px;
-  height: 20px;
-  margin-left: 30px;
-  appearance: none;
-  border-radius: 20px;
-  background: #8b8b8b;
-  cursor: pointer;
-}
-
-.filter-checkbox__input::after {
-  position: absolute;
-  content: '';
-  width: 16px;
-  height: 16px;
-  left: 5.56%;
-  right: 50%;
-  top: 10%;
-  bottom: 60.81%;
-  border-radius: 50%;
-  background: #ffffff;
-  box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.08);
-  transition: 0.2s linear;
-}
-
-.filter-checkbox__input:checked {
-  background: #3ddc84;
-}
-
-.filter-checkbox__input:checked::after {
-  left: 50%;
-  right: 5.56%;
-  transition: 0.2s linear;
 }
 
 .filter-checkbox__label {
+  display: flex;
+  align-items: center;
+  column-gap: 14px;
+}
+
+.filter-checkbox__input {
+  display: none;
+}
+
+.filter-checkbox__style {
+  cursor: pointer;
+  display: inline-block;
+  position: relative;
+  width: 36px;
+  height: 20px;
+  background: #3DDC84;
+  border-radius: 20px;
+  transition: opacity 0.2s linear;
+}
+
+.filter-checkbox__style:hover {
+  opacity: 0.8;
+}
+
+.filter-checkbox__style::before {
+  content: '';
+  background: #FFFFFF;
+  box-shadow: rgba(0, 0, 0, 0.08);
+  border-radius: 50%;
+  width: 16px;
+  height: 16px;
+  position: absolute;
+  top: 2px;
+  right: 2px;
+}
+
+.filter-checkbox__input:checked+.filter-checkbox__style::before {
+  right: 18px;
+  top: 2px;
+  background-color: #D3D3D3;
+}
+
+.filter-checkbox__input:checked+.filter-checkbox__style {
+  background-color: #A9A9A9;
+}
+
+.filter-checkbox__text {
   font-weight: 400;
   font-size: 13px;
-  line-height: 18px;
-  margin-left: 15px;
+  line-height: 1.38;
 }
 
 @media screen and (max-width: 768px) {
-  .filter-checkbox {
-     margin-left: 19px;
-     padding-left: 13px;
-  }
-}
-
-@media screen and (max-width: 550px) {
-  .filter-checkbox {
-     position: absolute;
-     top: 185px;
-     right: 126px;
-     background-color: #202020;
-     border: none;
-     padding: 0;
-  }
-}
-
-@media screen and (max-width: 430px) {
-  .filter-checkbox {
-     right: 76px;
-  }
-
   .filter-checkbox__label {
-     font-size: 11px;
+    column-gap: 15px;
+  }
+}
+
+@media screen and (max-width: 400px) {
+  .filter-checkbox__label {
+    column-gap: 13px;
+  }
+
+  .filter-checkbox__text {
+    font-weight: 400;
+    font-size: 11px;
+    line-height: 1.64;
   }
 }

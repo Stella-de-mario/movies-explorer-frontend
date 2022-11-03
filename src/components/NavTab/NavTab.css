@@ -1,26 +1,19 @@
 .navtab__list {
   list-style: none;
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   margin: 0 auto;
   padding: 0;
-  width: 308px;
+  column-gap: 10px;
 }
 
 .navtab__list-item {
   width: 96px;
   height: 36px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 10px;
+  padding-top: 8px;
+  text-align: center;
+  border-radius: 6px;
   background: #303030;
-  cursor: pointer;
-}
-
-.navtab__list-item:hover {
-  transition: opacity 0.3s linear;
-  opacity: 0.8;
 }
 
 .navtab__link {
@@ -29,27 +22,28 @@
   font-size: 12px;
   line-height: 1.33;
   color: #ffffff;
+  cursor: pointer;
+  transition: opacity 0.2s linear;
 }
 
-@media screen and (max-width: 800px) {
-  .navtab__list {
-    margin-bottom: 30px;
-  }
+.navtab__link:hover {
+  opacity: 0.8;;
 }
 
-@media screen and (max-width: 450px) {
+@media screen and (max-width: 500px) {
   .navtab__list {
-    width: 258px;
-    margin-bottom: 17px;
+    column-gap: 6px;
   }
 
   .navtab__list-item {
     width: 82px;
     height: 26px;
     border-radius: 6px;
+    padding-top: 2px;
   }
   
   .navtab__link {
     font-size: 10px;
+    line-height: 1.6;
   }
 }

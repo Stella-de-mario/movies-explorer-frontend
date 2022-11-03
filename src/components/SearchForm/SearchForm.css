@@ -1,5 +1,4 @@
 .search-form {
-    position: relative;
     margin: 0 70px;
     padding: 70px 0 68px;
     border-bottom: 1px solid #424242;
@@ -11,50 +10,65 @@
     width: 100%;
     background-color: #2f2f2f;
     border-radius: 9px;
- }
- 
- .search-form__label {
-    display: inline-block;
-    margin: 0;
- }
- 
- .search-form__input {
-    font-weight: 400;
-    font-size: 18px;
-    line-height: 1.11;
+    padding: 19px 30px 20px 19px;
+    justify-content: space-between;
+    column-gap: 29px;
     border: none;
-    outline: none;
-    width: 60%;
-    height: 72px;
-    color: #8b8b8b;
-    background: #2f2f2f;
-    padding: 0;
+ }
+ 
+ .search-form__container {
+   width: 100%;
+   display: flex;
+   align-items: center;
+   column-gap: 10px;
+   justify-content: space-between;
+   padding: 0 30px 0 0;
+   border-right: 1px solid #424242;
+   border-top: none;
+   border-bottom: none;
+   border-left: none;
+ }
+ 
+
+.search-form__input {
+   border: 0;
+   padding: 0;
+   font-weight: 400;
+   font-size: 18px;
+   line-height: 1.11;
+   color: #FFFFFF;
+   width: 100%;
+   background-color: #2F2F2F;
+   transition: opacity 0.2s linear;
+ }
+ .search-form__input:hover {
+   opacity: 0.6;
+ }
+ 
+ .search-form__input::placeholder {
+   color: #8B8B8B;
  }
  
  .search-form__input:focus {
-    outline: none;
-    border: 1px solid #3DDC84;
+   outline: 1px solid #8B8B8B;
  }
  
- .search-form__icon {
-    width: 34px;
-    height: 34px;
-    border-radius: 50%;
-    background-color: #4285f4;
+ .search-form__input:focus::placeholder {
+   opacity: 0; 
+   transition: opacity 0.2s linear;
  }
- 
+
  .search-form__icon_find_inactive {
-    width: 22px;
-    height: 22px;
+   min-width: 34px;
+  height: 34px;
     background-color: #2f2f2f;
-    background: transparent url('../../images/search_icon.svg') no-repeat;
-    margin: 19px 10px 19px 19px;
-    padding: 6px;
-    opacity: 0.5;
+    background: transparent url('../../images/search_icon.svg') no-repeat left;
  }
  
  .search-form__button_find {
-    width: 80px;
+   align-self: start;
+   min-width: 80px;
+  height: 34px;
     height: 34px;
     border: none;
     background-color: #2f2f2f;
@@ -65,56 +79,68 @@
  }
  
  .search-form__button_find:hover {
-    transition: opacity 0.5s linear;
-    opacity: 0.5;
+    transition: opacity 0.2s linear;
+    opacity: 0.8;
  }
  
- @media screen and (max-width: 840px) {
+ @media screen and (max-width: 800px) {
     .search-form {
         margin: 0 30px;
         padding: 80px 0 109px;
     }
- 
+    .search-form__container {
+      padding: 0 19px 0 0;
+    }
+  
+    .search-form__form {
+      column-gap: 19px;
+      padding: 19px 20px 20px 18px;
+    }
+
     .search-form__button_find {
     margin-right: 0;
  }
  }
  
  @media screen and (max-width: 550px) {
-    .search-form__label {
-       display: none;
-    }
- 
-    .search-form__input {
-       font-size: 14px;
-       line-height: 1.43;
-    }
- 
-    .search-form__form {
-       padding-left: 19px;
-       border-radius: 9px;
-    }
-
-    .search-form__button_find{
-       margin-right: 19px;
-    }
- }
- 
- @media screen and (max-width: 430px) {
     .search-form {
-       flex-direction: column;
-       max-width: 300px;
-       height: 148px;
-       padding: 80px 0 30px;
-       margin: 0 auto 10px;
-    }
- 
-    .search-form__form {
-       padding: 0 19px;
-       border-radius: 9px;
-    }
- 
-    .search-form__button_find {
-       margin-right: 0;
-    }
- }
+    padding: 80px 0 43px;
+    max-width: 620px;
+  }
+
+  .search-form__form {
+    flex-direction: column;
+    max-width: 620px;
+    row-gap: 46px;
+    background: none;
+    padding: 0;
+    border-radius: 0;
+  }
+
+  .search-form__container {
+    border: none;
+    background-color: #2F2F2F;
+    padding: 17px 19px 19px 21px;
+    border-radius: 9px;
+    width: 90.7%;
+  }
+
+  .search-form__input {
+    font-size: 14px;
+    line-height: 1.43;
+  }
+
+  .search-form__icon_find_inactive {
+    display: none;
+  }
+  
+  .search-form__checkbox {
+    background-color: none;
+  }
+}
+
+@media screen and (max-width: 450px) {
+  .search-form {
+    margin: 0 14px;
+  }
+}

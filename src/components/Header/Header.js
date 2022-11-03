@@ -1,13 +1,16 @@
 import React from "react";
 import "./Header.css";
 import Navigation from "../Navigation/Navigation";
+import AuthNavigation from '../AuthNavigation/AuthNavigation';
 import Logo from "../Logo/Logo";
 
 function Header({ isLoggedIn }) {
   return (
     <header className="header">
         <Logo />
-      <Navigation isLoggedIn={isLoggedIn} />
+      {isLoggedIn
+      ? <Navigation />
+    : <AuthNavigation />}
     </header>
   );
 }

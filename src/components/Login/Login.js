@@ -1,39 +1,45 @@
 import React from "react";
 import AuthContainer from "../AuthContainer/AuthContainer";
-import Auth from "../Auth/Auth";
-import Form from "../Form/Form";
-import ButtonSubmit from "../ButtonSubmit/ButtonSubmit";
+import "../AuthContainer/AuthContainer.css";
 
 function Login() {
   return (
-    <Auth
-      title="Рады видеть!"
-      subtitle="Ещё не зарегистрированы?"
+    <AuthContainer header="Рады видеть!"
+      submit="Войти"
+      text="Ещё не зарегистрированы?"
       link="Регистрация"
       route="/signup"
     >
-      <Form>
-        <AuthContainer
-          label="E-mail"
-          type="email"
+      <label className="auth-container__item">
+        <p className="auth-container__text">
+          E-mail
+        </p>
+        <input
+          className="auth-container__field"
           name="email"
+          type="email"
           required
-          error=" "
-          placeholder="Email"
         />
-        <AuthContainer
-          label="Пароль"
-          type="password"
+        <span className="auth-container__error">
+          Что-то пошло не так...
+        </span>
+      </label>
+      <label className="auth-container__item">
+        <p className="auth-container__text">
+          Пароль
+        </p>
+        <input
+          className="auth-container__field"
           name="password"
-          minLength="6"
+          type="password"
           required
-          placeholder="Пароль"
-          error=" "
         />
-      </Form>
-      <ButtonSubmit text="Войти" />
-    </Auth>
-  );
+        <span className="auth-container__error">
+          Что-то пошло не так...
+        </span>
+      </label>
+    </AuthContainer>
+  )
 }
 
 export default Login;
