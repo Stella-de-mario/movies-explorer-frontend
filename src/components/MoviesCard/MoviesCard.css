@@ -6,9 +6,11 @@
 }
 
 .movie-card__container {
+  margin-top: 7px;
+  height: 49px;
   display: flex;
-  flex-direction: column;
-  padding: 14px 0 14px 5px;
+  align-items: flex-start;
+  justify-content: space-between;
 }
 
 .movie-card__info {
@@ -19,13 +21,18 @@
 
 .movie-card__name {
   margin: 0;
-  font-size: 15px;
-  line-height: 1.2;
+  padding: 4px 0 0;
+  font-style: normal;
   font-weight: 500;
+  font-size: 13px;
+  line-height: 16px;
+  color: #ffffff;
 }
 
 .movie-card__duration {
   margin: 0;
+  padding: 7px 0 0;
+  font-style: normal;
   font-weight: 400;
   font-size: 11px;
   line-height: 1.18;
@@ -36,6 +43,7 @@
   cursor: pointer;
   border: none;
   padding: 0;
+  margin-left: auto;
   min-width: 30px;
   height: 30px;
   background: transparent url('../../images/icon_like_inactive.svg') no-repeat;
