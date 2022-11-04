@@ -23,9 +23,9 @@ function MoviesCard() {
       <div className="movie-card__container">
         <div className="movie-card__info">
           <h2 className="movie-card__name">
-            {initialMovies.nameRU}
+            {initialMovies.nameRU}33 слова о дизайне
           </h2>
-          <p className="movie-card__duration">{initialMovies.duration}</p>
+          <p className="movie-card__duration">{initialMovies.duration}1ч 47м</p>
         </div>
 
         {pathname === "/saved-movies" ? 
