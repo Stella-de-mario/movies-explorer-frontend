@@ -2,13 +2,8 @@
 @import url(./vendor/fonts/fonts.css);
 
 .body {
-  min-height: 100vh;
-  min-width: 280px;
-  max-width: 100%;
-  background: #202020;
-  margin: 0 auto;
-  color: #ffffff;
-  font-style: normal;
+  color: #FFFFFF;
+  background-color: #202020;
   font-family: 'Inter', 'Arial', 'Helvetica', sans-serif;
   -webkit-text-size-adjust: 100%;
   -ms-text-size-adjust: 100%;

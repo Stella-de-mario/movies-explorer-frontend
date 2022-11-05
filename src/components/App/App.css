@@ -1,9 +1,10 @@
 .App {
   min-height: 100vh;
   min-width: 320px;
-  max-width: 1440px;
+  max-width: 1280px;
   justify-content: flex-start;
   display: flex;
   flex-direction: column;
-  margin: 0 auto;
+  margin: auto;
+  box-sizing: border-box;
 }
