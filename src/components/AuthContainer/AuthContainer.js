@@ -21,7 +21,7 @@ const AuthContainer = ({ header, children, submit, text, route, link }) => {
           >
             {submit}
           </button>
-        </form>
+
         <div className="auth-container__specify">
           <p className="auth-container__specify-text">
             {text}
@@ -29,8 +29,11 @@ const AuthContainer = ({ header, children, submit, text, route, link }) => {
           <Link to={route} className="auth-container__link">
             {link}
           </Link>
+        
         </div>
+        </form>
       </div>
+
     </section>
   )
 }

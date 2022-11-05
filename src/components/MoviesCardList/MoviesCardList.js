@@ -7,7 +7,7 @@ function MoviesCardList({ movies }) {
   return (
     <section className="movies-cards">
       <ul className="movies-cards__list">{movies.map((card) => (
-        <li key={card._id}>
+        <li className="movies-cards__list-item" key={card._id}>
           <MoviesCard card={card} />
         </li>
       ))}</ul>

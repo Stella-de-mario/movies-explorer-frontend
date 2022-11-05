@@ -1,67 +1,67 @@
-import React, { useState } from "react";
-import { Link, NavLink } from "react-router-dom";
+import React from "react";
 import "./Navigation.css";
+import { NavLink, Link } from "react-router-dom";
 
 function Navigation() {
-  const [isOpenedMenu, setIsOpenedMenu] = useState(false);
 
-  function handleMenuButtonClick() {
-    setIsOpenedMenu(!isOpenedMenu);
+  const [burgerMenuIsOpened, setBurgerMenuIsOpened] = React.useState(false);
+
+  function handleBurgerButtonClick() {
+    setBurgerMenuIsOpened(!burgerMenuIsOpened);
   }
 
   return (
     <nav className="navigation">
       <button
-        className="navigation__menu"
+        className="navigation__menu-burger"
         type="button"
-        aria-label="Меню"
-        onClick={handleMenuButtonClick}
+        aria-label="Открыть меню"
+        onClick={handleBurgerButtonClick}
       />
       <div
         className={`navigation__container ${
-          isOpenedMenu
-            ? "navigation__container_opened"
+          burgerMenuIsOpened 
+            ? "navigation__container_opened" 
             : "navigation__container"
-        }`}
-      >
-        <div className="navigation__list">
+        }`}>
+        <div className="navigation__menubar">
           <div className="navigation__list-container">
             <button
               className="navigation__menu-close"
               type="button"
-              aria-label="Закрыть"
-              onClick={handleMenuButtonClick}
+              aria-label="Закрыть меню"
+              onClick={handleBurgerButtonClick}
             />
-            <ul className="navigation__links">
+            <ul className="navigation__list">
               <li className="navigation__item">
                 <Link className="navigation__link navigation__link_main" to="/">
                   Главная
                 </Link>
               </li>
               <li className="navigation__item">
-                <NavLink
-                  to="/movies"
-                  className="navigation__link"
-                  activeClassName="navigation__link-active"
-                >
+                <NavLink to="/movies"
+                className={({ isActive }) =>
+                  isActive
+                    ? "navigation__link_active"
+                    : "navigation__link"
+                } >
                   Фильмы
                 </NavLink>
               </li>
               <li className="navigation__item">
-                <NavLink
-                  to="/saved-movies"
-                  className="navigation__link"
-                  activeClassName="navigation__link-active"
-                >
-                  Сохранённые фильмы
+                <NavLink to="/saved-movies"
+                className={({ isActive }) =>
+                isActive
+                  ? "navigation__link_active"
+                  : "navigation__link navigation__link_font-weight"
+              }
+                 >
+                  Сохраненные фильмы
                 </NavLink>
               </li>
             </ul>
           </div>
-          <NavLink
-            className="navigation__link navigation__link_profile"
-            to="/profile"
-          >
+          <NavLink className="navigation__link navigation__link_profile"to="/profile">
             Аккаунт
           </NavLink>
         </div>

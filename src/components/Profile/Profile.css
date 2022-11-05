@@ -142,7 +142,7 @@
 
 @media screen and (max-width: 768px) {
   .profile {
-    padding: 236px 0 269px;
+    padding: 236px 0 0;
     height: 44vh;
   }
 
@@ -151,7 +151,7 @@
   }
 }
 
-@media screen and (max-width: 450px) {
+@media screen and (max-width: 470px) {
   .profile {
     height: 76.5vh;
     padding: 70px 0 40px;
@@ -169,6 +169,6 @@
 
   .profile__button {
     font-size: 12px;
-    line-height: 15px;
+    line-height:1.25;
   }
 }
