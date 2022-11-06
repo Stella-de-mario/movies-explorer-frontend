@@ -15,8 +15,8 @@ function MoviesCard() {
   return (
     <div className="movie-card">
       <img
-        src={initialMovies.image}
-        alt={initialMovies.nameRU}
+        src="Постер фильма"
+        alt="Название фильма"
         className="movie-card__image"
       />
 

@@ -108,7 +108,7 @@ class MainApi {
 
 }
 const mainApi = new MainApi({
-  baseUrl: "api.diploma.irinavladi.nomoredomains.icu",
+  baseUrl: "https://api.diploma.irinavladi.nomoredomains.icu",
   headers: {
     "Content-Type": "application/json",
   },

@@ -135,6 +135,19 @@
   display: none;
 }
 
+
+@media screen and (max-width: 1024px) {
+  .navigation {
+   padding-left: 122px;
+   max-width: 70%;
+  }
+
+  .navigation__link_profile {
+    padding: 0;
+  }
+}
+
+
 @media screen and (max-width: 768px) {
   .navigation__menu-burger {
     display: flex;
