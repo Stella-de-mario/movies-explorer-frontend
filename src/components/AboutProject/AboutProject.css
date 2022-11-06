@@ -11,6 +11,10 @@
   column-gap: 52px;
 }
 
+.about-project__info {
+  list-style-type:none;
+}
+
 .about-project__info-title {
   font-weight: 400;
   font-size: 20px;
