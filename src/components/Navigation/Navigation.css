@@ -1,6 +1,7 @@
 .navigation{
   width: 1280px;
   padding-left: 426px;
+  text-align: center;
 }
 
 .navigation__menu-burger {
@@ -67,6 +68,12 @@
   align-items: center;
   color: #FFFFFF;
   transition: opacity 0.2s linear;
+}
+
+.navigation__link_active {
+  text-decoration: none;
+  font-size: 13px;
+  line-height: 18px;
 }
 
 .navigation__link_font-weight {
@@ -187,6 +194,7 @@
   .navigation__link_font-weight {
     font-weight: 500;
   }
+
   .navigation__link_profile {
     font-size: 14px;
     line-height: 1.14;
@@ -200,7 +208,7 @@
 
   .navigation__link_active {
     padding-bottom: 4px;
-    border-bottom: 2px solid #FFFFFF;
+    /* border-bottom: 2px solid #FFFFFF; */
   }
 }
 
