@@ -1,5 +1,5 @@
 .navigation{
-  width: 1058px;
+  width: 1280px;
   padding-left: 426px;
 }
 
@@ -63,6 +63,8 @@
   font-size: 13px;
   line-height: 1.38;
   text-decoration: none;
+  display: flex;
+  align-items: center;
   color: #FFFFFF;
   transition: opacity 0.2s linear;
 }
@@ -83,12 +85,43 @@
   margin-left: 16px;
 }
 
+.navigation__link_profile-container {
+  width: 100px;
+  height: 32px;
+  display: flex;
+}
+
 .navigation__link_profile {
+  padding: 9.5px 20px;
+  font-size: 13px;
+  line-height: 12px;
+  width: 100px;
+  height: 32px;
+  list-style-type: none; 
+  padding-left: 364px;
+}
+
+.navigation__link_profile-account {
+  color: #ffff;
+  font-weight: 500;
+  font-size: 13px;  
+  line-height: 12px;
+  margin: 0;
+  padding-left: 11px;
+  transition: opacity 0.2s linear;
+}
+
+.navigation__link_profile_icon {
+  width: 30px;
+  height: 30px;
+  border-radius: 50px;
   background-color: #313131;
-  padding: 8px 20px;
-  border-radius: 20px;
-  font-size: 14px;
-  line-height: 1.14;
+  box-sizing: border-box;
+  text-align: center;
+  padding: 7.5px;
+  margin-left: 14px;
+  list-style-type: none; 
+  margin-right: 3px;
 }
 
 .navigation__link_main {
@@ -157,10 +190,12 @@
   .navigation__link_profile {
     font-size: 14px;
     line-height: 1.14;
+    padding: 0;
   }
 
-  .navigation__link_profile {
+  .navigation__link_profile-account {
     margin-bottom: 90px;
+    margin: 0 auto;
   }
 
   .navigation__link_active {

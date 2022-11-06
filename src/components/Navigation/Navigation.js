@@ -1,5 +1,6 @@
 import React from "react";
 import "./Navigation.css";
+import iconAccount from '../../images/icon_account.svg'
 import { NavLink, Link } from "react-router-dom";
 
 function Navigation() {
@@ -62,7 +63,12 @@ function Navigation() {
             </ul>
           </div>
           <NavLink className="navigation__link navigation__link_profile"to="/profile">
-            Аккаунт
+          <p className="navigation__link_profile_account">Аккаунт</p>
+          <img
+            src={iconAccount}
+            alt="Иконка"
+            className="navigation__link_profile_icon"
+          />
           </NavLink>
         </div>
       </div>
