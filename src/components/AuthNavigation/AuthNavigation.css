@@ -1,0 +1,45 @@
+.auth-nav__list {
+    display: flex;
+    column-gap: 30px;
+    padding: 0;
+    margin: 0;
+  }
+  
+  .auth-nav__item {
+    list-style: none;
+  }
+  
+  .auth-nav__link {
+    text-decoration: none;
+    color: #FFFFFF;
+    transition: opacity 0.2s linear;
+    font-weight: 500;
+    font-size: 12px;
+    line-height: 1.33;
+    cursor: pointer;
+  }
+  
+  .auth-nav__link:hover {
+    opacity: 0.8;
+  }
+  
+  .auth-nav__link_signin {
+    padding: 8px 20px;
+    color: #000000;
+    border-radius: 3px;
+  }
+  
+  @media screen and (max-width: 300px) {
+    .auth-nav__list {
+      column-gap: 14px;
+    }
+  
+    .auth-nav__link  {
+      font-size: 10px;
+      line-height: 1.6;
+    }
+  
+    .auth-nav__link_signin {
+      padding: 5px 12px;
+    }
+  }
