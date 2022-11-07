@@ -14,10 +14,8 @@ function MoviesCard() {
 
   return (
     <div className="movie-card">
-      <img
-        src="Постер фильма"
-        alt="Название фильма"
-        className="movie-card__image"
+      <img className="movie-card__image"
+        src="https://f.bangbangeducation.ru/course/course-cover/111/da91b00b-ea93-11e9-89b4-0242ac18000a.png" alt="Постер фильма"  
       />
 
       <div className="movie-card__container">

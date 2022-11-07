@@ -1,6 +1,6 @@
 .navigation{
-  width: 1280px;
-  padding-left: 426px;
+  width: 1058px;
+  padding-left: 382px;
   text-align: center;
 }
 
@@ -105,7 +105,6 @@
   width: 100px;
   height: 32px;
   list-style-type: none; 
-  padding-left: 364px;
 }
 
 .navigation__link_profile-account {
