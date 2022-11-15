@@ -28,7 +28,7 @@
   line-height: 1.19;
 }
 
-.page-not-found__link {
+.page-not-found__button {
   font-weight: 400;
   font-size: 14px;
   line-height: 1.21;
@@ -62,7 +62,7 @@
     row-gap: 10px;
   }
 
-  .page-not-found__link {
+  .page-not-found__button {
     font-size: 12px;
     line-height: 1.25;
   }

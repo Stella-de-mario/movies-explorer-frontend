@@ -1,21 +1,24 @@
-import React from "react";
+import React  from "react";
 import "./MoviesCardList.css";
 import MoviesCard from "../MoviesCard/MoviesCard";
 
-function MoviesCardList({ movies }) {
-  
+
+function MoviesCardList({ movies, saveMovie, onSaveMovie, onDeleteMovie }) {
+ 
+ const moviesElement = movies.map((card) => 
+  <li className="movies-cards__list-item" key={card._id || card.id}>
+    <MoviesCard
+           card={card}
+           onDeleteMovie={onDeleteMovie}
+           onSaveMovie={onSaveMovie}
+           saveMovie={saveMovie}
+          />
+        </li>
+ );
+
   return (
     <section className="movies-cards">
-      <ul className="movies-cards__list">{movies.map((card) => (
-        <li className="movies-cards__list-item" key={card._id}>
-          <MoviesCard card={card} />
-        </li>
-      ))}</ul>
-      <div className="movies-cards__button-container">
-        <button className="movies-cards__button" type="button">
-          Ещё
-        </button>
-      </div>
+      <ul className="movies-cards__list">{moviesElement}</ul>
     </section>
   );
 }

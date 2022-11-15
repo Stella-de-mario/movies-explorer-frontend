@@ -5,7 +5,7 @@ import HeadingTitle from "../HeadingTitle/HeadingTitle";
 
 function Techs() {
   return (
-    <section className="techs">
+    <section id="techs" className="techs">
       <Heading heading={"Технологии"} />
       <div className="techs_container">
         <HeadingTitle position={'techs'} text="7 технологий" />

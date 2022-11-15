@@ -10,6 +10,10 @@ class MainApi {
     return Promise.reject(`Ошибка: ${res.status}`);
   }
 
+  getUserData() {
+    return Promise.all([this.checkToken(), this.getSaveMovies()]);
+  }
+
   getUserInfo() {
     return fetch(`${this._options.baseUrl}/users/me`, {
       method: "GET",
@@ -42,7 +46,7 @@ class MainApi {
     }).then(this._getResponse);
   }
 
-  loginOut() {
+  signOut() {
     return fetch(`${this._options.baseUrl}/signout`, {
       method: "POST",
       credentials: "include",
@@ -60,6 +64,15 @@ class MainApi {
         email: data.email,
       }),
     }).then(this._getResponse);
+  }
+
+  checkToken() {
+    return fetch(`${this._options.baseUrl}/users/me`, {
+      method: "GET",
+      credentials: 'include',
+      headers: this._options.headers,
+    })
+    .then((res) => this._getResponse);
   }
 
   addMovies(movie) {
@@ -83,7 +96,7 @@ class MainApi {
     }).then(this._getResponse);
   }
 
-  getMovies() {
+  getSaveMovies() {
     return fetch(`${this._options.baseUrl}/movies`, {
       method: "GET",
       credentials: "include",
@@ -91,13 +104,14 @@ class MainApi {
     }).then(this._getResponse);
   }
 
-  toggleMoviesStatus(movie, isSave, movieId) {
+  changeMoviesStatus(movie, isSave, movieId) {
     if (!isSave) {
       return this.deleteMovies(movieId);
     } else {
       return this.addMovies(movie);
     }
   }
+
   deleteMovies(movieId) {
     return fetch(`${this._options.baseUrl}/movies/${movieId}`, {
       method: 'DELETE',

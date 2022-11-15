@@ -1,63 +1,113 @@
 import React from "react";
+import { useForm } from "../../hooks/useForm.js";
 import AuthContainer from "../AuthContainer/AuthContainer.js";
-import '../AuthContainer/AuthContainer.css';
 
-function Register() {
+function Register({ handleRegister, isLoading, isRegisterError, setIsRegisterError }) {
+  const  registerValues ={
+    name: "",
+    email: "",
+    password: "",
+  }
+  const { values, handleChange, errors, isValid, resetForm } = useForm(registerValues);
+
+  function handleSubmit(evt) {
+    evt.preventDefault();
+    handleRegister({ name: values.name, email: values.email, password: values.password });
+  }
+
+  function handleInputChange(evt) {
+    handleChange(evt);
+    setIsRegisterError("");
+  }
 
   return (
-    <AuthContainer header="Добро пожаловать!"
-    submit="Зарегистрироваться"
+    <AuthContainer
+      header="Добро пожаловать!"
+      name="register"
+      submit="Зарегистрироваться"
       text="Уже зарегистрированы?"
+      onSubmit={handleSubmit}
+      isValid={isValid}
       link="Войти"
       route="/signin"
+      isLoading={isLoading}
+      error={isRegisterError}
+      resetForm={resetForm}
     >
       <label className="auth-container__item">
-        <p className="auth-container__text">
-          Имя
-        </p>
+        <p className="auth-container__text">Имя</p>
         <input
-        className="auth-container__field"
-          name="register-name"
+          className={`"auth-container__field" ${
+            errors.name
+              ? "auth-container__field_error"
+              : "auth-container__field"
+          }`}
+          id="register-name"
+          name="name"
           type="text"
+          pattern="^[A-Za-zА-Яа-я-\s]+$"
           minLength="2"
-          maxLength="40"
+          maxLength="30"
           required
-          placeholder="Имя"
+          placeholder="Укажите ваше имя"
+          value={values.name || ""}
+          onChange={handleInputChange}
+          disabled={isLoading}
+          autoComplete={"off"}
         />
-              <span className="auth-container__error">
-          Что-то пошло не так...
-        </span>
-        </label>
-        <label className="auth-container__item">
-        <p className="auth-container__text">
-          E-mail
-        </p>
-          <input 
-          className="auth-container__field"
-          type="email"
-          name="email"
-          required
-          error=" "
-          placeholder="Email"
-        />
-         <span className="auth-container__error">
-          Что-то пошло не так...
+      <span className={`auth-container__error ${errors.name
+        ? "auth-container__error_visible"
+        : "auth-container__error"}`}>
+          {errors.name}
         </span>
       </label>
       <label className="auth-container__item">
-        <p className="auth-container__text">
-          Пароль
-        </p>
+        <p className="auth-container__text">E-mail</p>
         <input
-          className="auth-container__field auth-container__field_error"
+          className={`"auth-container__field" ${
+            errors.email
+              ? "auth-container__field_error"
+              : "auth-container__field"
+          }`}
+          id="register-email"
+          type="email"
+          name="email"
+          required
+          pattern="^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$"
+          value={values.email || ""}
+          disabled={isLoading}
+          onChange={handleInputChange}
+          autoComplete={"off"}
+          placeholder="Укажите ваш Email"
+        />
+          <span className={`auth-container__error ${errors.email
+            ? "auth-container__error_visible"
+            : "auth-container__error"}`}>
+              {errors.email}
+            </span>
+      </label>
+      <label className="auth-container__item">
+        <p className="auth-container__text">Пароль</p>
+        <input
+          className={`"auth-container__field" ${
+            errors.password
+              ? "auth-container__field_error"
+              : "auth-container__field"
+          }`}
+          id="register-password"
           type="password"
           name="password"
-          minLength="6"
           required
-          placeholder="Пароль"
+          disabled={isLoading}
+          placeholder="Введите пароль"
+          value={values.password || ""}
+          onChange={handleInputChange}
+          autoComplete={"off"}
         />
-     <span className="auth-container__error auth-container__error_visible">
-          Что-то пошло не так...
+       <span className={`auth-container__error ${errors.password
+        ? "auth-container__error_visible"
+        : "auth-container__error"}`}>
+          {errors.password}
         </span>
       </label>
     </AuthContainer>

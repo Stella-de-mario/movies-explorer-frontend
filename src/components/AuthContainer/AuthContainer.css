@@ -77,6 +77,7 @@
 
 .auth-container__field_error {
   color: #EE3465;
+  background-color: #2f2f2f;
 }
 
 .auth-container__error {
@@ -114,17 +115,18 @@
 
 .auth-container__button_disabled {
   cursor: default;
-  background: #B0C4DE;
-  color: #DCDCDC;
   transition: none;
-}
-
-.auth-container__button:hover {
+  background-color: #f8f8f8;
+  color: #c2c2c2;
   opacity: 0.8;
 }
 
+.auth-container__button:hover {
+  transform: scale(1.03);
+}
+
 .auth-container__button_disabled:hover {
-  opacity: 1;
+  transform: none;
 }
 
 .auth-container__specify {

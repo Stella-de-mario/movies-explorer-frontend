@@ -1,21 +1,97 @@
-import { useState } from "react";
+import { useState, useCallback } from "react";
+import isEmail from "validator/lib/isEmail";
+import { regexName } from "../utils/constants";
 
 export function useForm() {
   const [values, setValues] = useState({});
   const [errors, setErrors] = useState({});
   const [isValid, setIsValid] = useState(false);
 
-  const handleChange = (evt) => {
-    const { value, name } = evt.target;
-    setValues({ ...values, [name]: value });
-    setErrors({...errors, [name]: evt.target.validationMessage});
-    setIsValid(evt.target.checkValidity())
+  const handleChange = (event) => {
+    const target = event.target;
+    const name = target.name;
+    const value = target.value;
+    const validationMessage = target.validationMessage;
+    setValues((prevState) => ({
+      ...prevState,
+      [name]: value,
+    }));
+
+    setDescriptionErrors(name, value, validationMessage)
+    setIsValid(target.closest("form").checkValidity());
   };
 
-  function resetErrors() {
-    setErrors({});
-    setValues({});
-    setIsValid(false);
+  function setValuesErrors(name, validationMessage) {
+    setErrors((prevState) => ({
+      ...prevState,
+      [name]: validationMessage,
+    }));
   }
-  return { values, handleChange, setValues, isValid, errors, resetErrors };
+
+  function setDescriptionErrors(name, value, validationMessage) {
+    switch (name) {
+      case "name":
+        if (value.length === 0) {
+          setErrors((prevState) => ({
+            ...prevState,
+            [name]: 'Поле "имя" должно быть заполнено',
+          }));
+        } else if (value.length < 2 || value.length > 30) {
+          setErrors((prevState) => ({
+            ...prevState,
+            [name]: 'Поле "имя" должно содержать от 2 до 30 символов',
+          }));
+        } else if (regexName.test(value) !== true) {
+          setErrors((prevState) => ({
+            ...prevState,
+            [name]:
+              "Поле должно содержать только латиницу, кириллицу, пробел или дефис",
+          }));
+        } else {
+          setValuesErrors(name, validationMessage);
+        }
+        break;
+
+      case "email":
+        if (value.length === 0) {
+          setErrors((prevState) => ({
+            ...prevState,
+            [name]: 'Поле "email" должно быть заполнено',
+          }));
+        } else if (!isEmail(value)) {
+          setErrors((prevState) => ({
+            ...prevState,
+            [name]: "Пожалуйста, введите корректный адрес электронной почты",
+          }));
+        } else {
+          setValuesErrors(name, validationMessage);
+        }
+        break;
+
+      case "password":
+        if (value.length === 0) {
+          setErrors((prevState) => ({
+            ...prevState,
+            [name]: 'Поле "пароль" должно быть заполнено',
+          }));
+        } else {
+          setValuesErrors(name, validationMessage);
+        }
+        break;
+
+      default:
+        setValuesErrors(name, validationMessage);
+    }
+  }
+
+  const resetForm = useCallback(
+    (newValues = {}, newErrors = {}, newIsValid = false) => {
+      setValues(newValues);
+      setErrors(newErrors);
+      setIsValid(newIsValid);
+    },
+    [setValues, setErrors, setIsValid]
+  );
+
+  return { values, handleChange, setValues, isValid, errors, resetForm };
 }

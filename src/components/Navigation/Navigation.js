@@ -1,14 +1,14 @@
-import React from "react";
+import React, { useState } from "react";
 import "./Navigation.css";
 import iconAccount from '../../images/icon_account.svg'
 import { NavLink, Link } from "react-router-dom";
 
 function Navigation() {
 
-  const [burgerMenuIsOpened, setBurgerMenuIsOpened] = React.useState(false);
+  const [isOpenMenu, setIsOpenMenu] = useState(false);
 
-  function handleBurgerButtonClick() {
-    setBurgerMenuIsOpened(!burgerMenuIsOpened);
+  function handleMenuButtonClick() {
+    setIsOpenMenu(!isOpenMenu);
   }
 
   return (
@@ -17,11 +17,11 @@ function Navigation() {
         className="navigation__menu-burger"
         type="button"
         aria-label="Открыть меню"
-        onClick={handleBurgerButtonClick}
+        onClick={handleMenuButtonClick}
       />
       <div
         className={`navigation__container ${
-          burgerMenuIsOpened 
+          isOpenMenu 
             ? "navigation__container_opened" 
             : "navigation__container"
         }`}>
@@ -31,7 +31,7 @@ function Navigation() {
               className="navigation__menu-close"
               type="button"
               aria-label="Закрыть меню"
-              onClick={handleBurgerButtonClick}
+              onClick={handleMenuButtonClick}
             />
             <ul className="navigation__list">
               <li className="navigation__item">
