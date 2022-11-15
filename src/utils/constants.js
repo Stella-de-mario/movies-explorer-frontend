@@ -1,6 +1,6 @@
-export const regexUrl = /^https?:\/\/(www\.)?[a-zA-z\d\-]+\.[\w\d\-\._~:\/?#\[\]@!\$&'\(\)*\+,;=]{2,}#?$/;
-export const regexName = /^[A-Za-zА-Яа-я-\s]+$/;
-export const regexEmail = /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$/;
+export const regexUrl = /^https?:\/\/(www\.)?[a-zA-z\d-]+\.[\w\d\-._~:/?#[\]@!$&'()*+,;=]{2,}#?$/;
+export const regexName = /^[A-Za-zА-ЯЁа-яё\-\s]*$/;
+export const regexEmail = /^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/;
 export const shortMovieDuration = 40;
 
 export const mediumWidthSize = 1024;
