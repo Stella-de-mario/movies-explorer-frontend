@@ -34,6 +34,14 @@
   line-height: 1.21;
   text-decoration: none;
   color: #4285F4;
+  border: none;
+  background-color: #202020;
+  cursor: pointer;
+  transition: opacity 0.2s linear;
+}
+
+.page-not-found__button {
+  opacity: 0.8;
 }
 
 @media screen and (max-width: 768px) {

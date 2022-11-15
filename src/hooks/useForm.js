@@ -2,13 +2,13 @@ import { useState, useCallback } from "react";
 import isEmail from "validator/lib/isEmail";
 import { regexName } from "../utils/constants";
 
-export function useForm() {
-  const [values, setValues] = useState({});
+export function useForm(initialValues) {
+  const [values, setValues] = useState(initialValues);
   const [errors, setErrors] = useState({});
   const [isValid, setIsValid] = useState(false);
 
-  const handleChange = (event) => {
-    const target = event.target;
+  const handleChange = (evt) => {
+    const target = evt.target;
     const name = target.name;
     const value = target.value;
     const validationMessage = target.validationMessage;
@@ -34,17 +34,17 @@ export function useForm() {
         if (value.length === 0) {
           setErrors((prevState) => ({
             ...prevState,
-            [name]: 'Поле "имя" должно быть заполнено',
+            name: 'Поле "имя" должно быть заполнено',
           }));
         } else if (value.length < 2 || value.length > 30) {
           setErrors((prevState) => ({
             ...prevState,
-            [name]: 'Поле "имя" должно содержать от 2 до 30 символов',
+            name: 'Поле "имя" должно содержать от 2 до 30 символов',
           }));
-        } else if (regexName.test(value) !== true) {
+        } else if (!regexName.test(value)) {
           setErrors((prevState) => ({
             ...prevState,
-            [name]:
+            name:
               "Поле должно содержать только латиницу, кириллицу, пробел или дефис",
           }));
         } else {
@@ -56,12 +56,12 @@ export function useForm() {
         if (value.length === 0) {
           setErrors((prevState) => ({
             ...prevState,
-            [name]: 'Поле "email" должно быть заполнено',
+            email: 'Поле "email" должно быть заполнено',
           }));
         } else if (!isEmail(value)) {
           setErrors((prevState) => ({
             ...prevState,
-            [name]: "Пожалуйста, введите корректный адрес электронной почты",
+            email: "Пожалуйста, введите корректный адрес электронной почты",
           }));
         } else {
           setValuesErrors(name, validationMessage);
@@ -72,7 +72,7 @@ export function useForm() {
         if (value.length === 0) {
           setErrors((prevState) => ({
             ...prevState,
-            [name]: 'Поле "пароль" должно быть заполнено',
+            password: 'Поле "пароль" должно быть заполнено',
           }));
         } else {
           setValuesErrors(name, validationMessage);
@@ -81,6 +81,7 @@ export function useForm() {
 
       default:
         setValuesErrors(name, validationMessage);
+        break;
     }
   }
 
@@ -93,5 +94,5 @@ export function useForm() {
     [setValues, setErrors, setIsValid]
   );
 
-  return { values, handleChange, setValues, isValid, errors, resetForm };
+  return { values, handleChange, isValid, errors, resetForm };
 }

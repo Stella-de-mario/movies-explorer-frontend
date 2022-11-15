@@ -10,9 +10,9 @@ class MainApi {
     return Promise.reject(`Ошибка: ${res.status}`);
   }
 
-  getUserData() {
-    return Promise.all([this.checkToken(), this.getSaveMovies()]);
-  }
+  // getUserData() {
+  //   return Promise.all([this.checkToken(), this.getSaveMovies()]);
+  // }
 
   getUserInfo() {
     return fetch(`${this._options.baseUrl}/users/me`, {
@@ -22,58 +22,56 @@ class MainApi {
     }).then(this._getResponse);
   }
 
-  register(data) {
+  register({ name, email, password }) {
     return fetch(`${this._options.baseUrl}/signup`, {
       method: "POST",
       headers: this._options.headers,
       body: JSON.stringify({
-        name: data.name,
-        password: data.password,
-        email: data.email,
+       name, email, password
       }),
     }).then(this._getResponse);
   }
 
-  login(data) {
+  login({ email, password}) {
     return fetch(`${this._options.baseUrl}/signin`, {
       method: "POST",
       credentials: "include",
       headers: this._options.headers,
       body: JSON.stringify({
-        password: data.password,
-        email: data.email,
+        email, password
       }),
     }).then(this._getResponse);
   }
 
-  signOut() {
+  signOut(res) {
     return fetch(`${this._options.baseUrl}/signout`, {
       method: "POST",
       credentials: "include",
       headers: this._options.headers,
-    }).then(this._getResponse);
+    })
+    .then(res)
+    .catch((err) => console.log(err))   
   }
 
-  editUser(data) {
+  editUser({ name, email}) {
     return fetch(`${this._options.baseUrl}/users/me`, {
       method: "PATCH",
       credentials: "include",
       headers: this._options.headers,
       body: JSON.stringify({
-        name: data.name,
-        email: data.email,
+        name, email
       }),
     }).then(this._getResponse);
   }
 
-  checkToken() {
-    return fetch(`${this._options.baseUrl}/users/me`, {
-      method: "GET",
-      credentials: 'include',
-      headers: this._options.headers,
-    })
-    .then((res) => this._getResponse);
-  }
+  // checkToken() {
+  //   return fetch(`${this._options.baseUrl}/users/me`, {
+  //     method: "GET",
+  //     credentials: 'include',
+  //     headers: this._options.headers,
+  //   })
+  //   .then((res) => this._getResponse);
+  // }
 
   addMovies(movie) {
     return fetch(`${this._options.baseUrl}/movies`, {
@@ -89,9 +87,9 @@ class MainApi {
         duration: movie.duration,
         year: movie.year,
         description: movie.description,
-        image: `https://api.nomoreparties.co${movie.image.url}`,
+        image: movie.image,
         trailerLink: movie.trailerLink,
-        thumbnail: `https://api.nomoreparties.co${movie.image.formats.thumbnail.url}`,
+        thumbnail: movie.thumbnail,
       }),
     }).then(this._getResponse);
   }
@@ -104,13 +102,13 @@ class MainApi {
     }).then(this._getResponse);
   }
 
-  changeMoviesStatus(movie, isSave, movieId) {
-    if (!isSave) {
-      return this.deleteMovies(movieId);
-    } else {
-      return this.addMovies(movie);
-    }
-  }
+  // changeMoviesStatus(movie, isSave, movieId) {
+  //   if (!isSave) {
+  //     return this.deleteMovies(movieId);
+  //   } else {
+  //     return this.addMovies(movie);
+  //   }
+  // }
 
   deleteMovies(movieId) {
     return fetch(`${this._options.baseUrl}/movies/${movieId}`, {

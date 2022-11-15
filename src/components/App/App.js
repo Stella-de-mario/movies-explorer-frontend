@@ -11,7 +11,7 @@ import Register from "../Register/Register";
 import Login from "../Login/Login";
 import PageNotFound from "../PageNotFound/PageNotFound";
 import InfoTooltip from "../InfoTooltip/InfoTooltip";
-import  mainApi from "../../utils/MainApi";
+import  MainApi from "../../utils/MainApi";
 import { authorizerText, editUserText } from "../../utils/constants";
 
 function App() {
@@ -25,21 +25,23 @@ function App() {
   const [isSaveMovieError, setIsSaveMovieError] = useState(false);
   const [saveMovies, setSaveMovies] = useState([]);
   const [isInfoTooltipOpen, setIsInfoTooltipOpen] = useState(false);
+  const [isSuccess, setIsSuccess] = useState(false);
   const [isInfoTooltipTitle, setIsInfoTooltipTitle] = useState("");
 
   function handleLogin({ email, password }) {
     setIsLoading(true);
-    mainApi
+    MainApi
       .login({ email, password })
       .then((res) => {
         setIsLoggedIn(true);
-        localStorage.setItem("isLoggedIn", true);
+        localStorage.setItem("loggedIn", true);
         setCurrentUser(res);
         navigate.push("/movies");
         setIsLoginError("");
       })
       .catch((err) => {
         setIsLoginError(err.message);
+        setIsSuccess(false);
         console.log(err.message);
       })
       .finally(() => setIsLoading(false));
@@ -47,41 +49,41 @@ function App() {
 
   function handleRegister({ name, email, password }) {
     setIsLoading(true);
-    mainApi
+    MainApi
       .register({ name, email, password })
       .then(() => {
         handleLogin({ email, password });
         setIsRegisterError("");
       })
       .catch((err) => {
-        setIsLoginError(err.message);
+        setIsRegisterError(err.message);
+        setIsSuccess(false);
         console.log(err.message);
       })
       .finally(() => setIsLoading(false));
   }
 
   function handleSignOut() {
-    mainApi
+    MainApi
       .signOut()
-      .then((res) => {
+      .then(() => {
         setIsLoggedIn(false);
-        setCurrentUser({});
-        localStorage.removeItem("loggedIn");
-        localStorage.removeItem("movies");
-        localStorage.removeItem("searchMovies");
+        localStorage.clear();
         navigate.push("/");
+        setCurrentUser(null);
       })
       .catch((err) => {
         console.log(err);
       });
   }
 
-  function handleEditUser(userData) {
+  function handleEditUser({ name, email }) {
     setIsLoading(true);
     setIsInfoTooltipOpen(true);
-    mainApi
-      .editUser(userData)
+    MainApi
+      .editUser({ name, email })
       .then((res) => {
+        setCurrentUser(res);
         setIsInfoTooltipTitle(editUserText);
       })
       .catch((err) => {
@@ -95,7 +97,7 @@ function App() {
   }
 
   function handleAddMovies(movie) {
-    mainApi
+    MainApi
       .addMovies(movie)
       .then((newMovie) => {
         setSaveMovies([newMovie, ...saveMovies]);
@@ -109,7 +111,7 @@ function App() {
   }
 
   function handleDeleteMovies(movieId) {
-    mainApi
+    MainApi
       .deleteMovies(movieId)
       .then((movie) => {
         setSaveMovies((prevValue) => {
@@ -130,7 +132,7 @@ function App() {
 
   useEffect(() => {
     if (isLoggedIn === true) {
-      mainApi
+      MainApi
         .getSaveMovies()
         .then((res) => {
           setSaveMovies(res.reverse());
@@ -143,7 +145,7 @@ function App() {
   }, [isLoggedIn, navigate]);
 
   useEffect(() => {
-    mainApi
+    MainApi
       .getUserInfo()
       .then((user) => {
         setIsLoggedIn(true);
@@ -164,7 +166,7 @@ function App() {
           <Route exact path="/" element={<Main isLoggedIn={isLoggedIn} />} />
 
           <Route
-            path="/movies"
+            path="/movies/*"
             element={
               <ProtectedRoute
                 component={Movies}
@@ -176,8 +178,7 @@ function App() {
             }
           />
           <Route
-            exact
-            path="/saved-movies"
+            path="/saved-movies/*"
             element={
               <ProtectedRoute
                 component={SavedMovies}
@@ -190,7 +191,7 @@ function App() {
           />
 
           <Route
-            path="/profile"
+            path="/profile/*"
             element={
               <ProtectedRoute
                 component={Profile}
@@ -198,9 +199,6 @@ function App() {
                 isLoading={isLoading}
                 handleEditUser={handleEditUser}
                 onSignOut={handleSignOut}
-                isInfoTooltipOpen={isInfoTooltipOpen}
-                handleClosePopup={handleClosePopup}
-                isLoginError={isLoginError}
               />
             }
           />
@@ -208,26 +206,29 @@ function App() {
           <Route
             path="/signup"
             element={
-              isLoggedIn ?
-              <Navigate to='/' replace /> :
-            <Register 
+              !isLoggedIn ?
+              (<Register 
               handleRegister={handleRegister}
               isLoading={isLoading}
               isRegisterError={isRegisterError}
               setIsRegisterError={setIsRegisterError}
-            />}
+            />) : (
+              <Navigate to='/movies' />
+            )
+            }
           />
           <Route
             path="/signin"
             element={
-              isLoggedIn ?
-              <Navigate to='/' replace /> :
-            <Login
-            handleLogin={handleLogin}
-            isLoading={isLoading}
-            isLoginError={isLoginError}
-            setIsLoginError={setIsLoginError}
-             />}
+              !isLoggedIn ?
+              (<Login
+                handleLogin={handleLogin}
+                isLoading={isLoading}
+                isLoginError={isLoginError}
+                setIsLoginError={setIsLoginError}
+                 />) : (
+              <Navigate to='/movies' />)
+            }
           />
           <Route path="*" element={<PageNotFound />} />
         </Routes>
@@ -236,6 +237,7 @@ function App() {
         isInfoTooltipTitle={isInfoTooltipTitle}
         isOpen={isInfoTooltipOpen}
         onClose={handleClosePopup}
+        isSuccess={isSuccess}
         />
         
       </div>
