@@ -29,7 +29,7 @@ function Register({ handleRegister, isLoading, isRegisterError, setIsRegisterErr
       onSubmit={handleSubmit}
       isValid={isValid}
       link="Войти"
-      route="/signin"
+      path="/signin"
       isLoading={isLoading}
       error={isRegisterError}
       resetForm={resetForm}

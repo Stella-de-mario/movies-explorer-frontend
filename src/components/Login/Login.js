@@ -32,7 +32,7 @@ function Login({ handleLogin, isLoading, isLoginError, setIsLoginError }) {
       isLoading={isLoading}
       error={isLoginError}
       resetForm={resetForm}
-      route="/signup"
+      path="/signup"
     >
       <label className="auth-container__item">
         <p className="auth-container__text">E-mail</p>

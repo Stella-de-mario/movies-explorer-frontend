@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import Logo from '../Logo/Logo';
 import "./AuthContainer.css";
 
-const AuthContainer = ({ header, children, submit, text, route, link, isValid, handleSubmit, isLoading, errors }) => {
+const AuthContainer = ({ header, children, submit, text, path, link, isValid, handleSubmit, isLoading, errors }) => {
   return (
     <section className="auth-container">
       <div className="auth-container__content">
@@ -33,7 +33,7 @@ const AuthContainer = ({ header, children, submit, text, route, link, isValid, h
           <p className="auth-container__specify-text">
             {text}
           </p>
-          <Link to={route} className="auth-container__link">
+          <Link to={path} className="auth-container__link">
             {link}
           </Link>
         
