@@ -1,7 +1,9 @@
 .navigation{
   width: 1280px;
-  padding-left: 426px;
   text-align: center;
+  align-items: center;
+  margin: 0;
+  padding: 0;
 }
 
 .navigation__menu-burger {
@@ -105,7 +107,7 @@
   width: 100px;
   height: 32px;
   list-style-type: none; 
-  padding-left: 364px;
+  /* padding-left: 364px; */
 }
 
 .navigation__link_profile-account {

@@ -10,7 +10,7 @@ import {
   internalServerError
 } from "../../utils/constants";
 import { filterByDuration, filterByQuery } from "../../utils/filterMovies";
-import moviesApi from "../../utils/MoviesApi";
+import MoviesApi from "../../utils/MoviesApi";
 import useWidthWindow from "../../hooks/useWidthWindow";
 import {
   mediumWidthSize,
@@ -22,7 +22,7 @@ import {
   mediumNumberCards,
 } from "../../utils/constants";
 
-function Movies({ isLoggedIn, saveMovie, onSaveMovie, onDeleteMovie }) {
+function Movies({ isLoggedIn, saveMovie, handleAddMovies, handleDeleteMovies }) {
   const [movies, setMovies] = useState([]);
   const [isSearchMovies, setIsSearchMovies] = useState([]);
   const [isFilterMovies, setIsFilterMovies] = useState([]);
@@ -33,12 +33,12 @@ function Movies({ isLoggedIn, saveMovie, onSaveMovie, onDeleteMovie }) {
   const [isError, setIsError] = useState(false);
   const isWidth = useWidthWindow();
 
-  function onSearchMovie(searchWord) {
+  function handleSearchMovie(searchWord) {
     setIsLoading(true);
     setIsSearchActive(true);
     setIsError(false);
     if (movies.length === 0) {
-      moviesApi.getMovies()
+      MoviesApi.getMovies()
         .then((res) => {
           setMovies(res);
           localStorage.setItem("movies", JSON.stringify(res));
@@ -48,6 +48,7 @@ function Movies({ isLoggedIn, saveMovie, onSaveMovie, onDeleteMovie }) {
             "isSearchedMovies",
             JSON.stringify(filterMoviesArray)
           );
+          setIsSearchMovies(false);
         })
         .catch((err) => {
           console.log(err);
@@ -69,14 +70,14 @@ function Movies({ isLoggedIn, saveMovie, onSaveMovie, onDeleteMovie }) {
       : localStorage.removeItem("filterActive");
   }
 
-  function onFilterCheckbox() {
+  function handleFilterCheckbox() {
     isFilterActive
-      ? localStorage.removeItem("filterActive")
-      : localStorage.setItem("filterActive", true);
+      ? localStorage.setItem("filterActive", true)
+      : localStorage.removeItem("filterActive");
     setIsFilterActive((prevState) => !prevState);
   }
 
-  function handleAddMovies() {
+  function addMovies() {
     let added = isWidth > mediumWidthSize ? maxNumberCards : mediumNumberCards;
     setIsLimitedMovies((prevValue) => {
       return prevValue.concat(
@@ -110,14 +111,14 @@ function Movies({ isLoggedIn, saveMovie, onSaveMovie, onDeleteMovie }) {
   useEffect(() => {
     const allMovies = localStorage.getItem("movies");
     const searchMovies = localStorage.getItem("isSearchMovies");
-    const checked = localStorage.getItem("filterActive");
-    if (allMovies) {
+    const isChecked = localStorage.getItem("isFilterActive");
+    if (allMovies !== null ) {
       setMovies(JSON.parse(allMovies));
     }
-    if (searchMovies) {
+    if (searchMovies !== null ) {
       setIsSearchMovies(JSON.parse(searchMovies));
     }
-    if (checked) {
+    if (isChecked !== null ) {
       setIsFilterActive(true);
     }
   }, []);
@@ -126,8 +127,8 @@ function Movies({ isLoggedIn, saveMovie, onSaveMovie, onDeleteMovie }) {
     <section className="movies">
       <Header isLoggedIn={isLoggedIn} />
       <SearchForm
-        onSearchMovie={onSearchMovie}
-        onFilterCheckbox={onFilterCheckbox}
+        handleSearchMovie={handleSearchMovie}
+        handleFilterCheckbox={handleFilterCheckbox}
         isChecked={isFilterActive}
         isLoading={isLoading}
       />
@@ -150,9 +151,9 @@ function Movies({ isLoggedIn, saveMovie, onSaveMovie, onDeleteMovie }) {
       {!isError && !isLoading && isFilterMovies.length > 0 && (
         <MoviesCardList
           movies={isLimitedMovies}
-          onSaveMovie={onSaveMovie}
-          onDeleteMovie={onDeleteMovie}
-          saveMovies={saveMovie}
+          handleAddMovies={handleAddMovies}
+          handleDeleteMovies={handleDeleteMovies}
+          saveMovie={saveMovie}
         />
       )}
 
@@ -160,7 +161,7 @@ function Movies({ isLoggedIn, saveMovie, onSaveMovie, onDeleteMovie }) {
         <button
           className="movies-cards__button"
           type="button"
-          onClick={handleAddMovies}
+          onClick={addMovies}
         >
           Ещё
         </button>

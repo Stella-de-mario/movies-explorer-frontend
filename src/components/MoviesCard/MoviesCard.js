@@ -4,11 +4,11 @@ import "./MoviesCard.css";
 import { regexUrl } from "../../utils/constants";
 import { formatDuration } from '../../utils/formatDuration';
 
-function MoviesCard({ movie, isSavedMovie, onSaveMovie, onDeleteMovie }) {
+function MoviesCard({ movie, saveMovie, handleAddMovies, handleDeleteMovies }) {
 
   const { pathname } = useLocation();
 
-  const [saveMovie, setSaveMovie] = useState(null);
+  const [saveLikeMovie, setSaveLikeMovie] = useState(null);
 
   const trailerLink = regexUrl.test(movie.trailerLink) 
   ? movie.trailerLink
@@ -16,15 +16,15 @@ function MoviesCard({ movie, isSavedMovie, onSaveMovie, onDeleteMovie }) {
 
   useEffect (() => {
     if(!pathname !== '/saved-movies') {
-      setSaveMovie(isSavedMovie.find(item => item.movieId === movie.id));
+      setSaveLikeMovie(saveMovie.find(item => (Number(item.movieId)) === movie.id));
     }    
-  }, [movie.id, isSavedMovie, pathname]);
+  }, [movie.id, saveMovie, pathname]);
 
-  function handleChangeSave(evt) {
+  function toggleSaveClick(evt) {
     evt.preventDefault();
-    saveMovie ? 
-    onDeleteMovie(saveMovie._id ) :
-    onSaveMovie( {
+    saveLikeMovie ? 
+    handleDeleteMovies(saveLikeMovie._id ) :
+    handleAddMovies( {
       movieId: movie.id,  
       nameRU: movie.nameRU,
       nameEN: movie.nameEN,
@@ -40,7 +40,7 @@ function MoviesCard({ movie, isSavedMovie, onSaveMovie, onDeleteMovie }) {
   }
   function deleteMovies(evt) {
     evt.preventDefault();
-    onDeleteMovie(movie._id);
+    handleDeleteMovies(movie._id);
   }
 
   return (
@@ -72,11 +72,11 @@ function MoviesCard({ movie, isSavedMovie, onSaveMovie, onDeleteMovie }) {
          : 
           <button
             className={`movie-card__button ${
-              saveMovie ? "movie-card__button_save-active" : "movie-card__button"
+              saveLikeMovie ? "movie-card__button_save-active" : "movie-card__button"
             }`}
             type="button"
             aria-label="Добавить в сохраненное"
-            onClick={handleChangeSave}
+            onClick={toggleSaveClick}
           />
         }
       </div>

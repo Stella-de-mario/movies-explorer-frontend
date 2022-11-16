@@ -36,7 +36,7 @@ function App() {
         setIsLoggedIn(true);
         localStorage.setItem("loggedIn", true);
         setCurrentUser(res);
-        navigate.push("/movies");
+        navigate("/movies");
         setIsLoginError("");
       })
       .catch((err) => {
@@ -69,7 +69,7 @@ function App() {
       .then(() => {
         setIsLoggedIn(false);
         localStorage.clear();
-        navigate.push("/");
+        navigate("/");
         setCurrentUser(null);
       })
       .catch((err) => {
@@ -96,9 +96,9 @@ function App() {
       .finally(() => setIsLoading(false));
   }
 
-  function handleAddMovies(movie) {
+  function handleAddMovies(movieCard) {
     MainApi
-      .addMovies(movie)
+      .addMovies(movieCard)
       .then((newMovie) => {
         setSaveMovies([newMovie, ...saveMovies]);
       })
@@ -115,7 +115,7 @@ function App() {
       .deleteMovies(movieId)
       .then((movie) => {
         setSaveMovies((prevValue) => {
-          return prevValue.filter((i) => i._id !== movie._id);
+          return prevValue.filter((item) => item._id !== movie._id);
         });
       })
       .catch((err) => {
@@ -163,7 +163,7 @@ function App() {
     <CurrentUserContext.Provider value={currentUser}>
       <div className="App">
         <Routes>
-          <Route exact path="/" element={<Main isLoggedIn={isLoggedIn} />} />
+          <Route path="/" element={<Main isLoggedIn={isLoggedIn} />} />
 
           <Route
             path="/movies/*"
@@ -171,7 +171,7 @@ function App() {
               <ProtectedRoute
                 component={Movies}
                 isLoggedIn={isLoggedIn}
-                saveMovies={setSaveMovies}
+                saveMovies={saveMovies}
                 handleAddMovies={handleAddMovies}
                 handleDeleteMovies={handleDeleteMovies}
               />
@@ -206,28 +206,27 @@ function App() {
           <Route
             path="/signup"
             element={
-              !isLoggedIn ?
-              (<Register 
-              handleRegister={handleRegister}
+              isLoggedIn ?
+              <Navigate to='/movies' />
+              : <Register 
+              onRegister={handleRegister}
               isLoading={isLoading}
               isRegisterError={isRegisterError}
               setIsRegisterError={setIsRegisterError}
-            />) : (
-              <Navigate to='/movies' />
-            )
+            />
             }
           />
           <Route
             path="/signin"
             element={
-              !isLoggedIn ?
-              (<Login
-                handleLogin={handleLogin}
+              isLoggedIn ?
+              <Navigate to='/movies' />
+              : <Login
+                onLogin={handleLogin}
                 isLoading={isLoading}
                 isLoginError={isLoginError}
                 setIsLoginError={setIsLoginError}
-                 />) : (
-              <Navigate to='/movies' />)
+                 />
             }
           />
           <Route path="*" element={<PageNotFound />} />
