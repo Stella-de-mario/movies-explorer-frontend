@@ -1,7 +1,7 @@
 import React from "react";
 import "./FilterCheckbox.css";
 
-function FilterCheckbox({ isChecked, handleCheckbox  }) {
+function FilterCheckbox({ isChecked, onFilterCheckbox  }) {
 
   return (
     <div className="filter-checkbox">
@@ -12,7 +12,7 @@ function FilterCheckbox({ isChecked, handleCheckbox  }) {
         name="checkbox"
         type="checkbox"
         checked={isChecked || false}
-        onChange={handleCheckbox}
+        onChange={onFilterCheckbox}
       />
       <span className="filter-checkbox__style" />
       <span className="filter-checkbox__text">

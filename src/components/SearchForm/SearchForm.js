@@ -11,8 +11,9 @@ function SearchForm({ isChecked, onFilterCheckbox, onSearchMovie, isLoading }) {
    const [isSearchError, setIsSearchError] = useState("");
 
    function handleInputChange(evt) {
-      setIsSearchWord(evt.target.value);
-      setIsSearchError("");
+      const target = evt.target;
+      const value = target.value;
+      setIsSearchWord(value);
     }
 
    function handleSubmit(evt) {

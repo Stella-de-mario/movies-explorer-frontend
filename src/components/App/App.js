@@ -209,7 +209,7 @@ function App() {
               isLoggedIn ?
               <Navigate to='/movies' />
               : <Register 
-              onRegister={handleRegister}
+              handleRegister={handleRegister}
               isLoading={isLoading}
               isRegisterError={isRegisterError}
               setIsRegisterError={setIsRegisterError}
@@ -222,7 +222,7 @@ function App() {
               isLoggedIn ?
               <Navigate to='/movies' />
               : <Login
-                onLogin={handleLogin}
+                handleLogin={handleLogin}
                 isLoading={isLoading}
                 isLoginError={isLoginError}
                 setIsLoginError={setIsLoginError}

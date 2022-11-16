@@ -10,16 +10,16 @@ import { internalServerError, notFoundError } from "../../utils/constants";
 
 function SavedMovies({
   isLoggedIn,
-  onSaveMovie,
-  onDeleteMovie,
+  saveMovie,
+  handleDeleteMovies,
   isMoviesError,
 }) {
   const [isSearchMovies, setIsSearchMovies] = useState([]);
   const [isFilterMovies, setIsFilterMovies] = useState([]);
   const [isFilterActive, setIsFilterActive] = useState(false);
 
-  function onSearchMovie(searchWord) {
-    setIsSearchMovies(filterByQuery(onSaveMovie, searchWord));
+  function handleSearchMovie(searchWord) {
+    setIsSearchMovies(filterByQuery(saveMovie, searchWord));
   }
 
   function onFilterCheckbox() {
@@ -33,14 +33,14 @@ function SavedMovies({
   }, [isFilterActive, isSearchMovies]);
 
   useEffect(() => {
-    setIsSearchMovies(onSaveMovie);
-  }, [onSaveMovie]);
+    setIsSearchMovies(saveMovie);
+  }, [saveMovie]);
 
   return (
     <main className="saved-movies">
       <Header isLoggedIn={isLoggedIn} />
       <SearchForm
-        onSearchMovie={onSearchMovie}
+        handleSearchMovie={handleSearchMovie}
         onFilterCheckbox={onFilterCheckbox}
         isChecked={isFilterActive}
       />
@@ -55,7 +55,7 @@ function SavedMovies({
       )}
 
       {!isMoviesError && isFilterMovies.length > 0 && (
-        <MoviesCardList movies={isFilterMovies} onDeleteMovie={onDeleteMovie} />
+        <MoviesCardList movies={isFilterMovies} handleDeleteMovies={handleDeleteMovies} />
       )}
       <Footer />
     </main>
