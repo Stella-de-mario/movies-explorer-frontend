@@ -7,15 +7,18 @@ function FilterCheckbox({ isChecked, onFilterCheckbox  }) {
     <div className="filter-checkbox">
       <label className="filter-checkbox__label">
       <input
-        className={`filter-checkbox__input ${isChecked ? "filter-checkbox__input_checked" : ""}`}
+        className="filter-checkbox__input"
         id="filter-checkbox"
         name="checkbox"
         type="checkbox"
-        checked={isChecked || false}
+        checked={isChecked}
         onChange={onFilterCheckbox}
       />
       <span className="filter-checkbox__style" />
-      <span className="filter-checkbox__text">
+      <span className={`filter-checkbox__text ${
+          isChecked
+            ? "filter-checkbox__text"
+            : "filter-checkbox__text_disabled"}`}>
         Короткометражки
         </span>
       </label>

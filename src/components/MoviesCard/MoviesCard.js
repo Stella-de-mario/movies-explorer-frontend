@@ -4,7 +4,7 @@ import "./MoviesCard.css";
 import { regexUrl } from "../../utils/constants";
 import { formatDuration } from '../../utils/formatDuration';
 
-function MoviesCard({ movie, saveMovie, handleAddMovies, handleDeleteMovies }) {
+function MoviesCard({ movie, saveMovies, handleAddMovies, handleDeleteMovies }) {
 
   const { pathname } = useLocation();
 
@@ -16,9 +16,9 @@ function MoviesCard({ movie, saveMovie, handleAddMovies, handleDeleteMovies }) {
 
   useEffect (() => {
     if(!pathname !== '/saved-movies') {
-      setSaveLikeMovie(saveMovie.find(item => (Number(item.movieId)) === movie.id));
+      setSaveLikeMovie(saveMovies.find(item => (Number(item.movieId)) === movie.id));
     }    
-  }, [movie.id, saveMovie, pathname]);
+  }, [movie.id, saveMovies, pathname]);
 
   function toggleSaveClick(evt) {
     evt.preventDefault();

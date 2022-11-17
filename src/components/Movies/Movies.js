@@ -22,10 +22,10 @@ import {
   mediumNumberCards,
 } from "../../utils/constants";
 
-function Movies({ isLoggedIn, saveMovie, handleAddMovies, handleDeleteMovies }) {
+function Movies({ isLoggedIn, saveMovies, handleAddMovies, handleDeleteMovies }) {
   const [movies, setMovies] = useState([]);
   const [isSearchMovies, setIsSearchMovies] = useState([]);
-  const [isFilterMovies, setIsFilterMovies] = useState([]);
+  const [filterMovies, setFilterMovies] = useState([]);
   const [isLimitedMovies, setIsLimitedMovies] = useState([]);
   const [isSearchActive, setIsSearchActive] = useState(false);
   const [isFilterActive, setIsFilterActive] = useState(false);
@@ -81,15 +81,15 @@ function Movies({ isLoggedIn, saveMovie, handleAddMovies, handleDeleteMovies }) 
     let added = isWidth > mediumWidthSize ? maxNumberCards : mediumNumberCards;
     setIsLimitedMovies((prevValue) => {
       return prevValue.concat(
-        isFilterMovies.slice(prevValue.length, prevValue.length + added)
+        filterMovies.slice(prevValue.length, prevValue.length + added)
       );
     });
   }
 
   useEffect(() => {
     isFilterActive
-      ? setIsFilterMovies(filterByDuration(isSearchMovies))
-      : setIsFilterMovies(isSearchMovies);
+      ? setFilterMovies(filterByDuration(isSearchMovies))
+      : setFilterMovies(isSearchMovies);
   }, [isFilterActive, isSearchMovies]);
 
   useEffect(() => {
@@ -101,12 +101,12 @@ function Movies({ isLoggedIn, saveMovie, handleAddMovies, handleDeleteMovies }) 
     } else {
       limited = minQuantityCards;
     }
-    if (isFilterMovies.length > limited) {
-      setIsLimitedMovies(isFilterMovies.slice(0, limited));
+    if (filterMovies.length > limited) {
+      setIsLimitedMovies(filterMovies.slice(0, limited));
     } else {
-      setIsLimitedMovies(isFilterMovies);
+      setIsLimitedMovies(filterMovies);
     }
-  }, [isWidth, isFilterMovies]);
+  }, [isWidth, filterMovies]);
 
   useEffect(() => {
     const allMovies = localStorage.getItem("movies");
@@ -141,23 +141,23 @@ function Movies({ isLoggedIn, saveMovie, handleAddMovies, handleDeleteMovies }) 
       )}
       {!isError &&
       !isLoading &&
-      isFilterMovies.length === 0 &&
+      filterMovies.length === 0 &&
       isSearchActive ? (
         <div className="movies__error">{notFoundError}</div>
       ) : (
         ""
       )}
 
-      {!isError && !isLoading && isFilterMovies.length > 0 && (
+      {!isError && !isLoading && filterMovies.length > 0 && (
         <MoviesCardList
           movies={isLimitedMovies}
           handleAddMovies={handleAddMovies}
           handleDeleteMovies={handleDeleteMovies}
-          saveMovie={saveMovie}
+          saveMovies={saveMovies}
         />
       )}
 
-      {isLimitedMovies.length < isFilterMovies.length ? (
+      {isLimitedMovies.length < filterMovies.length ? (
         <button
           className="movies-cards__button"
           type="button"

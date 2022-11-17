@@ -2,7 +2,6 @@ import React, { useState, useContext, useEffect } from "react";
 import "./Profile.css";
 import { CurrentUserContext } from "../../contexts/CurrentUserContext";
 import { useForm } from "../../hooks/useForm";
-import { regexName, regexEmail } from "../../utils/constants";
 
 function Profile({ isLoading, handleSignOut, handleEditUser }) {
   const currentUser = useContext(CurrentUserContext);
@@ -47,7 +46,7 @@ function Profile({ isLoading, handleSignOut, handleEditUser }) {
               name="name"
               type="text"
               value={values.name || ""}
-              pattern={regexName}  
+              pattern="^[A-Za-zА-Яа-я-\s]+$"  
               disabled={isLoading}
               autoComplete={'off'}
               onChange={handleChange}
@@ -68,7 +67,7 @@ function Profile({ isLoading, handleSignOut, handleEditUser }) {
               label="E-mail"
               type="email"
               name="email"
-              pattern={regexEmail}
+              pattern="^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$"
               value={values.email || ""}
               disabled={isLoading}
               autoComplete={'off'}
@@ -85,8 +84,8 @@ function Profile({ isLoading, handleSignOut, handleEditUser }) {
             disabled={isButtonDisabled || isLoading}
             className={`profile__button ${
               isButtonDisabled
-                ? "profile__button_disabled"
-                : "profile__button"
+                ? "profile__button"
+                : "profile__button_disabled"
             }`}
           >
             Редактировать

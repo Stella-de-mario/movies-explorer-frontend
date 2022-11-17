@@ -3,7 +3,7 @@ import { useLocation } from "react-router-dom";
 import "./MoviesCardList.css";
 import MoviesCard from "../MoviesCard/MoviesCard";
 
-function MoviesCardList({ movies, saveMovie, handleAddMovies, handleDeleteMovies }) {
+function MoviesCardList({ movies, saveMovies, handleAddMovies, handleDeleteMovies }) {
   const location = useLocation();
  
  const moviesElement = movies.map((item) => 
@@ -12,7 +12,7 @@ function MoviesCardList({ movies, saveMovie, handleAddMovies, handleDeleteMovies
            card={item}
            handleDeleteMovies={handleDeleteMovies}
            handleAddMovies={handleAddMovies}
-           saveMovie={saveMovie}
+           saveMovies={saveMovies}
           />
         </li>
  );

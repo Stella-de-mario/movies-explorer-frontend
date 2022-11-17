@@ -10,16 +10,16 @@ import { internalServerError, notFoundError } from "../../utils/constants";
 
 function SavedMovies({
   isLoggedIn,
-  saveMovie,
+  saveMovies,
   handleDeleteMovies,
   isMoviesError,
 }) {
   const [isSearchMovies, setIsSearchMovies] = useState([]);
-  const [isFilterMovies, setIsFilterMovies] = useState([]);
+  const [filterMovies, setFilterMovies] = useState([]);
   const [isFilterActive, setIsFilterActive] = useState(false);
 
   function handleSearchMovie(searchWord) {
-    setIsSearchMovies(filterByQuery(saveMovie, searchWord));
+    setIsSearchMovies(filterByQuery(saveMovies, searchWord));
   }
 
   function onFilterCheckbox() {
@@ -27,14 +27,16 @@ function SavedMovies({
   }
 
   useEffect(() => {
-    isFilterActive
-      ? setIsFilterMovies(filterByDuration(isSearchMovies))
-      : setIsFilterMovies(isSearchMovies);
-  }, [isFilterActive, isSearchMovies]);
+    if(isFilterActive) {
+      setFilterMovies(filterByDuration(isSearchMovies))
+    } else {
+      setFilterMovies(isSearchMovies);
+    }    
+  }, [isFilterActive, isSearchMovies])
 
   useEffect(() => {
-    setIsSearchMovies(saveMovie);
-  }, [saveMovie]);
+    setIsSearchMovies(saveMovies);
+  }, [saveMovies]);
 
   return (
     <main className="saved-movies">
@@ -50,12 +52,12 @@ function SavedMovies({
         ""
       )}
 
-      {!isMoviesError && isFilterMovies.length === 0 && (
+      {!isMoviesError && filterMovies.length === 0 && (
         <div className="movies__error">{notFoundError}</div>
       )}
 
-      {!isMoviesError && isFilterMovies.length > 0 && (
-        <MoviesCardList movies={isFilterMovies} handleDeleteMovies={handleDeleteMovies} />
+      {!isMoviesError && filterMovies.length > 0 && (
+        <MoviesCardList movies={filterMovies} handleDeleteMovies={handleDeleteMovies} />
       )}
       <Footer />
     </main>
