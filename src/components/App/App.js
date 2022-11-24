@@ -23,47 +23,47 @@ function App() {
   const [isRegisterError, setIsRegisterError] = useState("");
   const [isLoginError, setIsLoginError] = useState("");
   const [isSaveMovieError, setIsSaveMovieError] = useState(false);
-  const [saveMovies, setSaveMovies] = useState([]);
+  const [savedMovies, setSavedMovies] = useState([]);
   const [isInfoTooltipOpen, setIsInfoTooltipOpen] = useState(false);
-  const [isSuccess, setIsSuccess] = useState(false);
+  // const [isSuccess, setIsSuccess] = useState(false);
   const [isInfoTooltipTitle, setIsInfoTooltipTitle] = useState("");
 
-  function handleLogin({ email, password }) {
+  function onLogin({ email, password }) {
     setIsLoading(true);
     MainApi
       .login({ email, password })
       .then((res) => {
         setIsLoggedIn(true);
-        localStorage.setItem("loggedIn", true);
+        localStorage.setItem("isLoggedIn", true);
         setCurrentUser(res);
         navigate("/movies");
         setIsLoginError("");
       })
       .catch((err) => {
         setIsLoginError(err.message);
-        setIsSuccess(false);
+        // setIsSuccess(false);
         console.log(err.message);
       })
       .finally(() => setIsLoading(false));
   }
 
-  function handleRegister({ name, email, password }) {
+  function onRegister({ name, email, password }) {
     setIsLoading(true);
     MainApi
       .register({ name, email, password })
       .then(() => {
-        handleLogin({ email, password });
+        onLogin({ email, password });
         setIsRegisterError("");
       })
       .catch((err) => {
         setIsRegisterError(err.message);
-        setIsSuccess(false);
+        // setIsSuccess(false);
         console.log(err.message);
       })
       .finally(() => setIsLoading(false));
   }
 
-  function handleSignOut() {
+  function onSignOut() {
     MainApi
       .signOut()
       .then(() => {
@@ -77,7 +77,7 @@ function App() {
       });
   }
 
-  function handleEditUser({ name, email }) {
+  function onUpdateUser({ name, email }) {
     setIsLoading(true);
     setIsInfoTooltipOpen(true);
     MainApi
@@ -90,7 +90,7 @@ function App() {
         setIsInfoTooltipTitle(err.message);
         console.log(err.message);
         if (err.message === authorizerText) {
-          handleSignOut();
+          onSignOut();
         }
       })
       .finally(() => setIsLoading(false));
@@ -100,12 +100,12 @@ function App() {
     MainApi
       .addMovies(movieCard)
       .then((newMovie) => {
-        setSaveMovies([newMovie, ...saveMovies]);
+        setSavedMovies([newMovie, ...savedMovies]);
       })
       .catch((err) => {
         console.log(err.message);
         if (err.message === authorizerText) {
-          handleSignOut();
+          onSignOut();
         }
       });
   }
@@ -114,14 +114,14 @@ function App() {
     MainApi
       .deleteMovies(movieId)
       .then((movie) => {
-        setSaveMovies((prevValue) => {
-          return prevValue.filter((item) => item._id !== movie._id);
+        setSavedMovies((prevValue) => {
+          return prevValue.filter(item => item._id !== movie._id);
         });
       })
       .catch((err) => {
         console.log(err.message);
         if (err.message === authorizerText) {
-          handleSignOut();
+          onSignOut();
         }
       });
   }
@@ -135,7 +135,7 @@ function App() {
       MainApi
         .getSaveMovies()
         .then((res) => {
-          setSaveMovies(res.reverse());
+          setSavedMovies(res.reverse());
         })
         .catch((err) => {
           setIsSaveMovieError(true);
@@ -171,7 +171,7 @@ function App() {
               <ProtectedRoute
                 component={Movies}
                 isLoggedIn={isLoggedIn}
-                saveMovies={saveMovies}
+                savedMovies={savedMovies}
                 handleAddMovies={handleAddMovies}
                 handleDeleteMovies={handleDeleteMovies}
               />
@@ -183,7 +183,7 @@ function App() {
               <ProtectedRoute
                 component={SavedMovies}
                 isLoggedIn={isLoggedIn}
-                saveMovies={saveMovies}
+                savedMovies={savedMovies}
                 handleDeleteMovies={handleDeleteMovies}
                 isSaveMovieError={isSaveMovieError}
               />
@@ -197,8 +197,8 @@ function App() {
                 component={Profile}
                 isLoggedIn={isLoggedIn}
                 isLoading={isLoading}
-                handleEditUser={handleEditUser}
-                onSignOut={handleSignOut}
+                onUpdateUser={onUpdateUser}
+                onSignOut={onSignOut}
               />
             }
           />
@@ -209,7 +209,7 @@ function App() {
               isLoggedIn ?
               <Navigate to='/movies' />
               : <Register 
-              handleRegister={handleRegister}
+              onRegister={onRegister}
               isLoading={isLoading}
               isRegisterError={isRegisterError}
               setIsRegisterError={setIsRegisterError}
@@ -222,7 +222,7 @@ function App() {
               isLoggedIn ?
               <Navigate to='/movies' />
               : <Login
-                handleLogin={handleLogin}
+                onLogin={onLogin}
                 isLoading={isLoading}
                 isLoginError={isLoginError}
                 setIsLoginError={setIsLoginError}
@@ -236,7 +236,6 @@ function App() {
         isInfoTooltipTitle={isInfoTooltipTitle}
         isOpen={isInfoTooltipOpen}
         onClose={handleClosePopup}
-        isSuccess={isSuccess}
         />
         
       </div>

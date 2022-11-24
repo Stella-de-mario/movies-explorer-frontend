@@ -1,9 +1,7 @@
 import React from "react";
-import registrationEr from "../../images/registrationEr.svg";
-import registrationOk from "../../images/registrationOk.svg";
 import "./InfoTooltip.css";
 
-function InfoTooltip({ isOpen, onClose, textError }) {
+function InfoTooltip({ isOpen, onClose, messageText }) {
   return (
     <div className={`popup ${isOpen
     ? "popup_opened" : "popup"}`}>
@@ -14,27 +12,7 @@ function InfoTooltip({ isOpen, onClose, textError }) {
           aria-label="Закрыть"
           onClick={onClose}
         />
-        {textError ? (
-          <>
-            <img
-              className="popup__registration-image"
-              src={registrationEr}
-              alt={"Ошибка"}
-            />
-            <h2 className="popup__text popup__text_info-error">{textError}</h2>
-          </>
-        ) : (
-          <>
-            <img
-              className="popup__registration-image"
-              src={registrationOk}
-              alt={"Успешно"}
-            />
-            <h2 className="popup__text popup__text_info">
-              Вы успешно зарегистрировались!
-            </h2>
-          </>
-        )}
+             <h2 className="popup__text">{messageText}</h2>
       </div>
     </div>
   );

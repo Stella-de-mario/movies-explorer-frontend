@@ -1,8 +1,8 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useForm } from "../../hooks/useForm.js";
 import AuthContainer from "../AuthContainer/AuthContainer.js";
 
-function Register({ handleRegister, isLoading, isRegisterError, setIsRegisterError }) {
+function Register({ onRegister, isLoading, isRegisterError, setIsRegisterError }) {
   const  registerValues ={
     name: "",
     email: "",
@@ -12,13 +12,18 @@ function Register({ handleRegister, isLoading, isRegisterError, setIsRegisterErr
 
   function handleSubmit(evt) {
     evt.preventDefault();
-    handleRegister({ name: values.name, email: values.email, password: values.password });
+    onRegister({ name: values.name, email: values.email, password: values.password });
   }
 
   function handleInputChange(evt) {
     handleChange(evt);
     setIsRegisterError("");
   }
+
+  useEffect(() => {
+  setIsRegisterError('');
+}, [setIsRegisterError])
+
 
   return (
     <AuthContainer

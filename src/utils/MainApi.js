@@ -1,6 +1,6 @@
 class MainApi {
   constructor(options) {
-    this._options = options;
+    this._baseUrl = options.baseUrl;
   }
 
   _getResponse(res) {
@@ -10,22 +10,18 @@ class MainApi {
     return Promise.reject(`Ошибка: ${res.status}`);
   }
 
-  // getUserData() {
-  //   return Promise.all([this.checkToken(), this.getSaveMovies()]);
-  // }
-
   getUserInfo() {
-    return fetch(`${this._options.baseUrl}/users/me`, {
+    return fetch(`${this._baseUrl}/users/me`, {
       method: "GET",
-      headers: this._options.headers,
+      headers: this._headers,
       credentials: "include",
     }).then(this._getResponse);
   }
 
   register({ name, email, password }) {
-    return fetch(`${this._options.baseUrl}/signup`, {
+    return fetch(`${this._baseUrl}/signup`, {
       method: "POST",
-      headers: this._options.headers,
+      headers: this._headers,
       body: JSON.stringify({
        name, email, password
       }),
@@ -33,10 +29,10 @@ class MainApi {
   }
 
   login({ email, password}) {
-    return fetch(`${this._options.baseUrl}/signin`, {
+    return fetch(`${this._baseUrl}/signin`, {
       method: "POST",
       credentials: "include",
-      headers: this._options.headers,
+      headers: this._headers,
       body: JSON.stringify({
         email, password
       }),
@@ -44,40 +40,31 @@ class MainApi {
   }
 
   signOut(res) {
-    return fetch(`${this._options.baseUrl}/signout`, {
-      method: "POST",
+    return fetch(`${this._baseUrl}/signout`, {
+      method: "DELETE",
       credentials: "include",
-      headers: this._options.headers,
+      headers: this._headers,
     })
     .then(res)
     .catch((err) => console.log(err))   
   }
 
   editUser({ name, email}) {
-    return fetch(`${this._options.baseUrl}/users/me`, {
+    return fetch(`${this._baseUrl}/users/me`, {
       method: "PATCH",
       credentials: "include",
-      headers: this._options.headers,
+      headers: this._headers,
       body: JSON.stringify({
         name, email
       }),
     }).then(this._getResponse);
   }
 
-  // checkToken() {
-  //   return fetch(`${this._options.baseUrl}/users/me`, {
-  //     method: "GET",
-  //     credentials: 'include',
-  //     headers: this._options.headers,
-  //   })
-  //   .then((res) => this._getResponse);
-  // }
-
   addMovies(movie) {
-    return fetch(`${this._options.baseUrl}/movies`, {
+    return fetch(`${this._baseUrl}/movies`, {
       method: "POST",
       credentials: "include",
-      headers: this._options.headers,
+      headers: this._headers,
       body: JSON.stringify({
         movieId: movie.id,
         nameRU: movie.nameRU,
@@ -95,26 +82,18 @@ class MainApi {
   }
 
   getSaveMovies() {
-    return fetch(`${this._options.baseUrl}/movies`, {
+    return fetch(`${this._baseUrl}/movies`, {
       method: "GET",
       credentials: "include",
-      headers: this._options.headers,
+      headers: this._headers,
     }).then(this._getResponse);
   }
 
-  // changeMoviesStatus(movie, isSave, movieId) {
-  //   if (!isSave) {
-  //     return this.deleteMovies(movieId);
-  //   } else {
-  //     return this.addMovies(movie);
-  //   }
-  // }
-
   deleteMovies(movieId) {
-    return fetch(`${this._options.baseUrl}/movies/${movieId}`, {
+    return fetch(`${this._baseUrl}/movies/${movieId}`, {
       method: 'DELETE',
       credentials: 'include',
-      headers: this._options.headers,
+      headers: this._headers,
     }).then(this._getResponse);
   }
 

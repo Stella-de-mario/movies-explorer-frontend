@@ -22,75 +22,76 @@ import {
   mediumNumberCards,
 } from "../../utils/constants";
 
-function Movies({ isLoggedIn, saveMovies, handleAddMovies, handleDeleteMovies }) {
+function Movies({ isLoggedIn, savedMovies, handleAddMovies, handleDeleteMovies }) {
+
   const [movies, setMovies] = useState([]);
-  const [isSearchMovies, setIsSearchMovies] = useState([]);
+  const [searchMovies, setSearchMovies] = useState([]);
   const [filterMovies, setFilterMovies] = useState([]);
-  const [isLimitedMovies, setIsLimitedMovies] = useState([]);
+  const [limitMovies, setLimitMovies] = useState([]);
   const [isSearchActive, setIsSearchActive] = useState(false);
   const [isFilterActive, setIsFilterActive] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
-  const [isError, setIsError] = useState(false);
+  const [isSearchError, setIsSearchError] = useState(false);
+
   const isWidth = useWidthWindow();
 
-  function handleSearchMovie(searchWord) {
-    setIsLoading(true);
+  function onSearchMovie(searchQuery) {
     setIsSearchActive(true);
-    setIsError(false);
-    if (movies.length === 0) {
+    setIsLoading(true);
+      if (movies.length === 0) {
       MoviesApi.getMovies()
         .then((res) => {
           setMovies(res);
           localStorage.setItem("movies", JSON.stringify(res));
-          const filterMoviesArray = filterByQuery(res, searchWord);
-          setIsSearchMovies(filterMoviesArray);
+          const filterMoviesArray = filterByQuery(res, searchQuery);
+          setSearchMovies(filterMoviesArray);
           localStorage.setItem(
-            "isSearchedMovies",
+            "searchMovies",
             JSON.stringify(filterMoviesArray)
           );
-          setIsSearchMovies(false);
+          setIsSearchActive(false);
         })
         .catch((err) => {
           console.log(err);
-          setIsError(true);
+          setIsSearchError(true);
         })
         .finally(() => setIsLoading(false));
     } else {
-      const filterMoviesArray = filterByQuery(movies, searchWord);
-      setIsSearchMovies(filterMoviesArray);
+      const filterSearchMoviesArray = filterByQuery(movies, searchQuery);
+      setSearchMovies(filterSearchMoviesArray);
       localStorage.setItem(
-        "isSearchedMovies",
-        JSON.stringify(filterMoviesArray)
+        "searchMovies",
+        JSON.stringify(filterSearchMoviesArray)
       );
       setIsLoading(false);
     }
-    localStorage.setItem("searchWord", searchWord);
+    localStorage.setItem("searchQuery", searchQuery);
     isFilterActive
       ? localStorage.setItem("filterActive", true)
       : localStorage.removeItem("filterActive");
   }
 
-  function handleFilterCheckbox() {
+  function onFilterCheckbox() {
     isFilterActive
       ? localStorage.setItem("filterActive", true)
       : localStorage.removeItem("filterActive");
     setIsFilterActive((prevState) => !prevState);
   }
 
+  useEffect(() => {
+    isFilterActive
+      ? setFilterMovies(filterByDuration(searchMovies))
+      : setFilterMovies(searchMovies);
+  }, [isFilterActive, searchMovies]);
+
   function addMovies() {
     let added = isWidth > mediumWidthSize ? maxNumberCards : mediumNumberCards;
-    setIsLimitedMovies((prevValue) => {
+    setLimitMovies((prevValue) => {
       return prevValue.concat(
         filterMovies.slice(prevValue.length, prevValue.length + added)
       );
     });
   }
-
-  useEffect(() => {
-    isFilterActive
-      ? setFilterMovies(filterByDuration(isSearchMovies))
-      : setFilterMovies(isSearchMovies);
-  }, [isFilterActive, isSearchMovies]);
 
   useEffect(() => {
     let limited;
@@ -102,21 +103,21 @@ function Movies({ isLoggedIn, saveMovies, handleAddMovies, handleDeleteMovies })
       limited = minQuantityCards;
     }
     if (filterMovies.length > limited) {
-      setIsLimitedMovies(filterMovies.slice(0, limited));
+      setLimitMovies(filterMovies.slice(0, limited));
     } else {
-      setIsLimitedMovies(filterMovies);
+      setLimitMovies(filterMovies);
     }
   }, [isWidth, filterMovies]);
 
   useEffect(() => {
     const allMovies = localStorage.getItem("movies");
-    const searchMovies = localStorage.getItem("isSearchMovies");
-    const isChecked = localStorage.getItem("isFilterActive");
+    const searchMovies = localStorage.getItem("searchMovies");
+    const isChecked = localStorage.getItem("filterActive");
     if (allMovies !== null ) {
       setMovies(JSON.parse(allMovies));
     }
     if (searchMovies !== null ) {
-      setIsSearchMovies(JSON.parse(searchMovies));
+      setSearchMovies(JSON.parse(searchMovies));
     }
     if (isChecked !== null ) {
       setIsFilterActive(true);
@@ -127,19 +128,19 @@ function Movies({ isLoggedIn, saveMovies, handleAddMovies, handleDeleteMovies })
     <section className="movies">
       <Header isLoggedIn={isLoggedIn} />
       <SearchForm
-        handleSearchMovie={handleSearchMovie}
-        handleFilterCheckbox={handleFilterCheckbox}
+        onSearchMovie={onSearchMovie}
+        onFilterCheckbox={onFilterCheckbox}
         isChecked={isFilterActive}
         isLoading={isLoading}
       />
       {isLoading && <Preloader />}
 
-      {isError ? (
+      {isSearchError ? (
         <div className="movies__error">{internalServerError}</div>
       ) : (
         ""
       )}
-      {!isError &&
+      {!isSearchError &&
       !isLoading &&
       filterMovies.length === 0 &&
       isSearchActive ? (
@@ -148,16 +149,16 @@ function Movies({ isLoggedIn, saveMovies, handleAddMovies, handleDeleteMovies })
         ""
       )}
 
-      {!isError && !isLoading && filterMovies.length > 0 && (
+      {!isSearchError && !isLoading && filterMovies.length > 0 && (
         <MoviesCardList
-          movies={isLimitedMovies}
+          movies={limitMovies}
           handleAddMovies={handleAddMovies}
           handleDeleteMovies={handleDeleteMovies}
-          saveMovies={saveMovies}
+          savedMovies={savedMovies}
         />
       )}
 
-      {isLimitedMovies.length < filterMovies.length ? (
+      {limitMovies.length < filterMovies.length ? (
         <button
           className="movies-cards__button"
           type="button"

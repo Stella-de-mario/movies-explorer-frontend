@@ -14,7 +14,7 @@ function Navigation() {
   return (
     <nav className="navigation">
       <button
-        className="navigation__menu-burger"
+        className="navigation__menu"
         type="button"
         aria-label="Открыть меню"
         onClick={handleMenuButtonClick}
@@ -25,7 +25,7 @@ function Navigation() {
             ? "navigation__container_opened" 
             : "navigation__container"
         }`}>
-        <div className="navigation__menubar">
+        <div className="navigation__menu-bar">
           <div className="navigation__list-container">
             <button
               className="navigation__menu-close"

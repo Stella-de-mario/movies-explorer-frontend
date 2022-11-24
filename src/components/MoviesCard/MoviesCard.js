@@ -4,7 +4,7 @@ import "./MoviesCard.css";
 import { regexUrl } from "../../utils/constants";
 import { formatDuration } from '../../utils/formatDuration';
 
-function MoviesCard({ movie, saveMovies, handleAddMovies, handleDeleteMovies }) {
+function MoviesCard({ movie, savedMovies, handleAddMovies, handleDeleteMovies }) {
 
   const { pathname } = useLocation();
 
@@ -16,12 +16,11 @@ function MoviesCard({ movie, saveMovies, handleAddMovies, handleDeleteMovies }) 
 
   useEffect (() => {
     if(!pathname !== '/saved-movies') {
-      setSaveLikeMovie(saveMovies.find(item => (Number(item.movieId)) === movie.id));
+      setSaveLikeMovie(savedMovies.find(item => (Number(item.movieId)) === movie.id));
     }    
-  }, [movie.id, saveMovies, pathname]);
+  }, [movie.id, savedMovies, pathname]);
 
-  function toggleSaveClick(evt) {
-    evt.preventDefault();
+  function toggleClick() {
     saveLikeMovie ? 
     handleDeleteMovies(saveLikeMovie._id ) :
     handleAddMovies( {
@@ -30,7 +29,7 @@ function MoviesCard({ movie, saveMovies, handleAddMovies, handleDeleteMovies }) 
       nameEN: movie.nameEN,
       country: movie.country,
       director: movie.director,
-      duration: movie.formatedDuration,
+      duration: movie.duration,
       year: movie.year,
       description: movie.description,
       image: 'https://api.nomoreparties.co/' + movie.image.url,
@@ -38,8 +37,7 @@ function MoviesCard({ movie, saveMovies, handleAddMovies, handleDeleteMovies }) 
       thumbnail: 'https://api.nomoreparties.co/' + movie.thumbnail,
     })
   }
-  function deleteMovies(evt) {
-    evt.preventDefault();
+  function deleteMovies() {
     handleDeleteMovies(movie._id);
   }
 
@@ -76,7 +74,7 @@ function MoviesCard({ movie, saveMovies, handleAddMovies, handleDeleteMovies }) 
             }`}
             type="button"
             aria-label="Добавить в сохраненное"
-            onClick={toggleSaveClick}
+            onClick={toggleClick}
           />
         }
       </div>

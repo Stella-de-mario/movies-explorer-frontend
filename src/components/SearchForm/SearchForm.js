@@ -3,37 +3,42 @@ import "./SearchForm.css";
 import FilterCheckbox from "../FilterCheckbox/FilterCheckbox.js";
 import { useLocation } from "react-router-dom";
 
-function SearchForm({ isChecked, onFilterCheckbox, handleSearchMovie, isLoading }) {
+function SearchForm({
+  isChecked,
+  onFilterCheckbox,
+  onSearchMovie,
+  isLoading,
+}) {
   const { pathname } = useLocation();
 
-  const [isSearchWord, setIsSearchWord] = useState("");
-  const [isSearchError, setIsSearchError] = useState("");
+  const [searchQuery, setSearchQuery] = useState("");
+  const [searchError, setSearchError] = useState("");
 
   function handleInputChange(evt) {
     const target = evt.target;
     const value = target.value;
-    setIsSearchWord(value);
+    setSearchQuery(value);
   }
 
   function handleSubmit(evt) {
     evt.preventDefault();
-    isSearchWord === ""
-      ? setIsSearchError("Введите ключевое слово")
-      : handleSearchMovie(isSearchWord);
+    searchQuery === ""
+      ? setSearchError("Введите ключевое слово")
+      : onSearchMovie(searchQuery);
   }
 
   useEffect(() => {
     if (pathname === "/movies") {
-      const search = localStorage.getItem("searchWord");
+      const search = localStorage.getItem("searchQuery");
       if (search) {
-        setIsSearchWord(search);
+        setSearchQuery(search);
       }
     }
   }, [pathname]);
 
   useEffect(() => {
-    setIsSearchError("");
-  }, [isSearchWord]);
+    setSearchError("");
+  }, [searchQuery]);
 
   return (
     <section className="search-form">
@@ -42,12 +47,12 @@ function SearchForm({ isChecked, onFilterCheckbox, handleSearchMovie, isLoading 
           <div className="search-form__icon_find_inactive"></div>
           <input
             className={`search-form__input ${
-              isSearchError ? "search-form__input_error" : "search-form__input"
+              searchError ? "search-form__input_error" : "search-form__input"
             }`}
             name="search-form"
             type="text"
             placeholder="Фильм"
-            value={isSearchWord}
+            value={searchQuery}
             onChange={handleInputChange}
             disabled={isLoading}
             autoComplete={"off"}
@@ -55,17 +60,14 @@ function SearchForm({ isChecked, onFilterCheckbox, handleSearchMovie, isLoading 
           />
           <span
             className={`search-form__error ${
-              isSearchError
-                ? "search-form__error_visible"
-                : "search-form__error"
+              searchError ? "search-form__error_visible" : "search-form__error"
             }`}
           >
-            {isSearchError}
+            {searchError}
           </span>
           <button
             className="search-form__button_find"
             type="submit"
-            onClick={handleSubmit}
             disabled={isLoading}
           />
         </div>

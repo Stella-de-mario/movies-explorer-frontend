@@ -1,9 +1,10 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { useForm } from "../../hooks/useForm.js";
 import AuthContainer from "../AuthContainer/AuthContainer";
 import "../AuthContainer/AuthContainer.css";
-import { useForm } from "../../hooks/useForm.js";
 
-function Login({ handleLogin, isLoading, isLoginError, setIsLoginError }) {
+
+function Login({ onLogin, isLoading, isLoginError, setIsLoginError }) {
   const loginValues = {
     email: "",
     password: "",
@@ -13,13 +14,17 @@ function Login({ handleLogin, isLoading, isLoginError, setIsLoginError }) {
 
   function handleSubmit(evt) {
     evt.preventDefault();
-    handleLogin({ email: values.email, password: values.password });
+    onLogin({ email: values.email, password: values.password });
   }
 
   function handleInputChange(evt) {
     handleChange(evt);
     setIsLoginError("");
   }
+
+  useEffect(() => {
+  setIsLoginError('');
+}, [setIsLoginError])
 
   return (
     <AuthContainer
@@ -74,8 +79,7 @@ function Login({ handleLogin, isLoading, isLoginError, setIsLoginError }) {
           id="login-input-password"
           name="password"
           type="password"
-          minLength="2"
-          maxLength="40"
+          minLength="6"
           placeholder="Пароль"
           onChange={handleInputChange}
           autoComplete={"off"}
