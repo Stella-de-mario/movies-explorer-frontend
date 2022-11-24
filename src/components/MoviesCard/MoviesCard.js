@@ -4,41 +4,41 @@ import "./MoviesCard.css";
 import { regexUrl } from "../../utils/constants";
 import { formatDuration } from '../../utils/formatDuration';
 
-function MoviesCard({ movie, savedMovies, handleAddMovies, handleDeleteMovies }) {
+function MoviesCard({ card, savedMovies, handleAddMovies, handleDeleteMovies }) {
 
   const { pathname } = useLocation();
 
   const [saveLikeMovie, setSaveLikeMovie] = useState(null);
 
-  const trailerLink = regexUrl.test(movie.trailerLink) 
-  ? movie.trailerLink
+  const trailerLink = regexUrl.test(card.trailerLink) 
+  ? card.trailerLink
   : 'https://www.youtube.com';
 
   useEffect (() => {
     if(pathname !== '/saved-movies') {
-      setSaveLikeMovie(savedMovies.find(item => (Number(item.movieId)) === movie.id));
+      setSaveLikeMovie(savedMovies.find(item => (Number(item.movieId)) === card.id));
     }    
-  }, [movie.id, savedMovies, pathname]);
+  }, [card.id, savedMovies, pathname]);
 
   function toggleClick() {
     saveLikeMovie ? 
     handleDeleteMovies(saveLikeMovie._id ) :
     handleAddMovies( {
-      movieId: movie.id,  
-      nameRU: movie.nameRU,
-      nameEN: movie.nameEN,
-      country: movie.country,
-      director: movie.director,
-      duration: movie.duration,
-      year: movie.year,
-      description: movie.description,
-      image: 'https://api.nomoreparties.co/' + movie.image.url,
-      trailerLink: movie.trailerLink,
-      thumbnail: 'https://api.nomoreparties.co/' + movie.thumbnail,
+      movieId: card.id,  
+      nameRU: card.nameRU,
+      nameEN: card.nameEN,
+      country: card.country,
+      director: card.director,
+      duration: card.duration,
+      year: card.year,
+      description: card.description,
+      image: 'https://api.nomoreparties.co/' + card.image.url,
+      trailerLink: card.trailerLink,
+      thumbnail: 'https://api.nomoreparties.co/' + card.thumbnail,
     })
   }
   function deleteMovies() {
-    handleDeleteMovies(movie._id);
+    handleDeleteMovies(card._id);
   }
 
   return (
@@ -47,17 +47,17 @@ function MoviesCard({ movie, savedMovies, handleAddMovies, handleDeleteMovies })
       <img
        className="movie-card__image"
         src={pathname !== '/saved-movies'
-        ? ('https://api.nomoreparties.co/' + movie.image.url)
-        : movie.image}
-        alt={movie.nameRU} 
+        ? ('https://api.nomoreparties.co/' + card.image.url)
+        : card.image}
+        alt={card.nameRU} 
       />
 </a>
       <div className="movie-card__container">
         <div className="movie-card__info">
           <h2 className="movie-card__name">
-            {movie.nameRU}
+            {card.nameRU}
           </h2>
-          <p className="movie-card__duration">{formatDuration(movie.duration)}</p>
+          <p className="movie-card__duration">{formatDuration(card.duration)}</p>
         </div>
 
         {pathname === "/saved-movies" ? 

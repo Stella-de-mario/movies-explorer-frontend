@@ -18,7 +18,7 @@ function SavedMovies({
   const [filterMovies, setFilterMovies] = useState([]);
   const [isFilterActive, setIsFilterActive] = useState(false);
 
-  function handleSearchMovie(searchWord) {
+  function onSearchMovie(searchWord) {
     setIsSearchMovies(filterByQuery(savedMovies, searchWord));
   }
 
@@ -42,7 +42,7 @@ function SavedMovies({
     <main className="saved-movies">
       <Header isLoggedIn={isLoggedIn} />
       <SearchForm
-        handleSearchMovie={handleSearchMovie}
+        onSearchMovie={onSearchMovie}
         onFilterCheckbox={onFilterCheckbox}
         isChecked={isFilterActive}
       />
