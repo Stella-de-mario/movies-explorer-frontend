@@ -15,7 +15,7 @@ function MoviesCard({ movie, savedMovies, handleAddMovies, handleDeleteMovies })
   : 'https://www.youtube.com';
 
   useEffect (() => {
-    if(!pathname !== '/saved-movies') {
+    if(pathname !== '/saved-movies') {
       setSaveLikeMovie(savedMovies.find(item => (Number(item.movieId)) === movie.id));
     }    
   }, [movie.id, savedMovies, pathname]);
