@@ -3,9 +3,11 @@ import "./Profile.css";
 import { CurrentUserContext } from "../../contexts/CurrentUserContext";
 import { useForm } from "../../hooks/useForm";
 import InfoTooltip from "../InfoTooltip/InfoTooltip";
+import Header from "../Header/Header";
 
 function Profile({
   isLoading,
+  isLoggedIn,
   onSignOut,
   onUpdateUser,
   isOpen,
@@ -38,6 +40,7 @@ function Profile({
 
   return (
     <>
+    <Header page={'profile'} isLoggedIn={isLoggedIn} />
       <section className="profile">
         <form className="profile__form" onSubmit={handleSubmit} noValidate>
           <h2 className="profile__title">Привет, {currentUser.name}!</h2>
