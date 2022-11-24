@@ -10,7 +10,7 @@ import { internalServerError, notFoundError } from "../../utils/constants";
 
 function SavedMovies({
   isLoggedIn,
-  saveMovies,
+  savedMovies,
   handleDeleteMovies,
   isMoviesError,
 }) {
@@ -19,7 +19,7 @@ function SavedMovies({
   const [isFilterActive, setIsFilterActive] = useState(false);
 
   function handleSearchMovie(searchWord) {
-    setIsSearchMovies(filterByQuery(saveMovies, searchWord));
+    setIsSearchMovies(filterByQuery(savedMovies, searchWord));
   }
 
   function onFilterCheckbox() {
@@ -35,8 +35,8 @@ function SavedMovies({
   }, [isFilterActive, isSearchMovies])
 
   useEffect(() => {
-    setIsSearchMovies(saveMovies);
-  }, [saveMovies]);
+    setIsSearchMovies(savedMovies);
+  }, [savedMovies]);
 
   return (
     <main className="saved-movies">
