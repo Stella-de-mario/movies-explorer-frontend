@@ -1,6 +1,6 @@
 class MainApi {
   constructor(options) {
-    this._baseUrl = options.baseUrl;
+    this._options = options;;
   }
 
   _getResponse(res) {
@@ -11,17 +11,17 @@ class MainApi {
   }
 
   getUserInfo() {
-    return fetch(`${this._baseUrl}/users/me`, {
+    return fetch(`${this._options.baseUrl}/users/me`, {
       method: "GET",
-      headers: this._headers,
+      headers: this._options.headers,
       credentials: "include",
     }).then(this._getResponse);
   }
 
   register({ name, email, password }) {
-    return fetch(`${this._baseUrl}/signup`, {
+    return fetch(`${this._options.baseUrl}/signup`, {
       method: "POST",
-      headers: this._headers,
+      headers: this._options.headers,
       body: JSON.stringify({
        name, email, password
       }),
@@ -29,10 +29,10 @@ class MainApi {
   }
 
   login({ email, password}) {
-    return fetch(`${this._baseUrl}/signin`, {
+    return fetch(`${this._options.baseUrl}/signin`, {
       method: "POST",
       credentials: "include",
-      headers: this._headers,
+      headers: this._options.headers,
       body: JSON.stringify({
         email, password
       }),
@@ -40,20 +40,20 @@ class MainApi {
   }
 
   signOut(res) {
-    return fetch(`${this._baseUrl}/signout`, {
+    return fetch(`${this._options.baseUrl}/signout`, {
       method: "DELETE",
       credentials: "include",
-      headers: this._headers,
+      headers: this._options.headers,
     })
     .then(res)
     .catch((err) => console.log(err))   
   }
 
   editUser({ name, email}) {
-    return fetch(`${this._baseUrl}/users/me`, {
+    return fetch(`${this._options.baseUrl}/users/me`, {
       method: "PATCH",
       credentials: "include",
-      headers: this._headers,
+      headers: this._options.headers,
       body: JSON.stringify({
         name, email
       }),
@@ -61,10 +61,10 @@ class MainApi {
   }
 
   addMovies(movie) {
-    return fetch(`${this._baseUrl}/movies`, {
+    return fetch(`${this._options.baseUrl}/movies`, {
       method: "POST",
       credentials: "include",
-      headers: this._headers,
+      headers: this._options.headers,
       body: JSON.stringify({
         movieId: movie.id,
         nameRU: movie.nameRU,
@@ -82,18 +82,18 @@ class MainApi {
   }
 
   getSaveMovies() {
-    return fetch(`${this._baseUrl}/movies`, {
+    return fetch(`${this._options.baseUrl}/movies`, {
       method: "GET",
       credentials: "include",
-      headers: this._headers,
+      headers: this._options.headers,
     }).then(this._getResponse);
   }
 
   deleteMovies(movieId) {
-    return fetch(`${this._baseUrl}/movies/${movieId}`, {
+    return fetch(`${this._options.baseUrl}/movies/${movieId}`, {
       method: 'DELETE',
       credentials: 'include',
-      headers: this._headers,
+      headers: this._options.headers,
     }).then(this._getResponse);
   }
 

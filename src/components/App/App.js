@@ -26,7 +26,7 @@ function App() {
   const [savedMovies, setSavedMovies] = useState([]);
   const [isInfoTooltipOpen, setIsInfoTooltipOpen] = useState(false);
   // const [isSuccess, setIsSuccess] = useState(false);
-  const [isInfoTooltipTitle, setIsInfoTooltipTitle] = useState("");
+  const [messageText, setMessageText] = useState("");
 
   function onLogin({ email, password }) {
     setIsLoading(true);
@@ -84,10 +84,10 @@ function App() {
       .editUser({ name, email })
       .then((res) => {
         setCurrentUser(res);
-        setIsInfoTooltipTitle(editUserText);
+        setMessageText(editUserText);
       })
       .catch((err) => {
-        setIsInfoTooltipTitle(err.message);
+        setMessageText(err.message);
         console.log(err.message);
         if (err.message === authorizerText) {
           onSignOut();
@@ -233,7 +233,7 @@ function App() {
         </Routes>
 
         <InfoTooltip
-        isInfoTooltipTitle={isInfoTooltipTitle}
+        messageText={messageText}
         isOpen={isInfoTooltipOpen}
         onClose={handleClosePopup}
         />
