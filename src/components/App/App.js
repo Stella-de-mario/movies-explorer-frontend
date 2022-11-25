@@ -11,12 +11,12 @@ import Register from "../Register/Register";
 import Login from "../Login/Login";
 import PageNotFound from "../PageNotFound/PageNotFound";
 import InfoTooltip from "../InfoTooltip/InfoTooltip";
-import  MainApi from "../../utils/MainApi";
+import MainApi from "../../utils/MainApi";
 import { authorizerText, editUserText } from "../../utils/constants";
 
 function App() {
   const navigate = useNavigate();
- 
+
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [currentUser, setCurrentUser] = useState({});
   const [isLoading, setIsLoading] = useState(false);
@@ -25,13 +25,12 @@ function App() {
   const [isSaveMovieError, setIsSaveMovieError] = useState(false);
   const [savedMovies, setSavedMovies] = useState([]);
   const [isInfoTooltipOpen, setIsInfoTooltipOpen] = useState(false);
-  // const [isSuccess, setIsSuccess] = useState(false);
+  const [isSuccess, setIsSuccess] = useState(false);
   const [messageText, setMessageText] = useState("");
 
   function onLogin({ email, password }) {
     setIsLoading(true);
-    MainApi
-      .login({ email, password })
+    MainApi.login({ email, password })
       .then((res) => {
         setIsLoggedIn(true);
         localStorage.setItem("isLoggedIn", true);
@@ -41,7 +40,7 @@ function App() {
       })
       .catch((err) => {
         setIsLoginError(err.message);
-        // setIsSuccess(false);
+        setIsSuccess(false);
         console.log(err.message);
       })
       .finally(() => setIsLoading(false));
@@ -49,23 +48,21 @@ function App() {
 
   function onRegister({ name, email, password }) {
     setIsLoading(true);
-    MainApi
-      .register({ name, email, password })
+    MainApi.register({ name, email, password })
       .then(() => {
         onLogin({ email, password });
         setIsRegisterError("");
       })
       .catch((err) => {
         setIsRegisterError(err.message);
-        // setIsSuccess(false);
+        setIsSuccess(false);
         console.log(err.message);
       })
       .finally(() => setIsLoading(false));
   }
 
   function onSignOut() {
-    MainApi
-      .signOut()
+    MainApi.signOut()
       .then(() => {
         setIsLoggedIn(false);
         localStorage.clear();
@@ -80,8 +77,7 @@ function App() {
   function onUpdateUser({ name, email }) {
     setIsLoading(true);
     setIsInfoTooltipOpen(true);
-    MainApi
-      .editUser({ name, email })
+    MainApi.editUser({ name, email })
       .then((res) => {
         setCurrentUser(res);
         setMessageText(editUserText);
@@ -96,9 +92,8 @@ function App() {
       .finally(() => setIsLoading(false));
   }
 
-  function handleAddMovies(movieCard) {
-    MainApi
-      .addMovies(movieCard)
+  function handleAddMovies(card) {
+    MainApi.addMovies(card)
       .then((newMovie) => {
         setSavedMovies([newMovie, ...savedMovies]);
       })
@@ -111,11 +106,10 @@ function App() {
   }
 
   function handleDeleteMovies(movieId) {
-    MainApi
-      .deleteMovies(movieId)
+    MainApi.deleteMovies(movieId)
       .then((movie) => {
         setSavedMovies((prevValue) => {
-          return prevValue.filter(item => item._id !== movie._id);
+          return prevValue.filter((item) => item._id !== movie._id);
         });
       })
       .catch((err) => {
@@ -132,8 +126,7 @@ function App() {
 
   useEffect(() => {
     if (isLoggedIn === true) {
-      MainApi
-        .getSaveMovies()
+      MainApi.getSaveMovies()
         .then((res) => {
           setSavedMovies(res.reverse());
         })
@@ -145,18 +138,19 @@ function App() {
   }, [isLoggedIn, navigate]);
 
   useEffect(() => {
-    MainApi
-      .getUserInfo()
-      .then((user) => {
-        setIsLoggedIn(true);
-        localStorage.setItem("isLoggedIn", true);
-        setCurrentUser({name: user.name, email: user.email});
-      })
-      .catch((err) => {
-        setIsLoggedIn(false);
-        localStorage.removeItem("isLoggedIn");
-        console.log(err.message);
-      });
+    if (isLoggedIn) {
+      MainApi.getUserInfo()
+        .then((user) => {
+          setIsLoggedIn(true);
+          localStorage.setItem("isLoggedIn", true);
+          setCurrentUser({ name: user.name, email: user.email });
+        })
+        .catch((err) => {
+          setIsLoggedIn(false);
+          localStorage.removeItem("isLoggedIn");
+          console.log(err.message);
+        });
+    }
   }, [isLoggedIn, navigate]);
 
   return (
@@ -206,38 +200,42 @@ function App() {
           <Route
             path="/signup"
             element={
-              isLoggedIn ?
-              <Navigate to='/movies' />
-              : <Register 
-              onRegister={onRegister}
-              isLoading={isLoading}
-              isRegisterError={isRegisterError}
-              setIsRegisterError={setIsRegisterError}
-            />
+              isLoggedIn ? (
+                <Navigate to="/movies" />
+              ) : (
+                <Register
+                  onRegister={onRegister}
+                  isLoading={isLoading}
+                  isRegisterError={isRegisterError}
+                  setIsRegisterError={setIsRegisterError}
+                />
+              )
             }
           />
           <Route
             path="/signin"
             element={
-              isLoggedIn ?
-              <Navigate to='/movies' />
-              : <Login
-                onLogin={onLogin}
-                isLoading={isLoading}
-                isLoginError={isLoginError}
-                setIsLoginError={setIsLoginError}
-                 />
+              isLoggedIn ? (
+                <Navigate to="/movies" />
+              ) : (
+                <Login
+                  onLogin={onLogin}
+                  isLoading={isLoading}
+                  isLoginError={isLoginError}
+                  setIsLoginError={setIsLoginError}
+                />
+              )
             }
           />
           <Route path="*" element={<PageNotFound />} />
         </Routes>
 
         <InfoTooltip
-        messageText={messageText}
-        isOpen={isInfoTooltipOpen}
-        onClose={handleClosePopup}
+          messageText={messageText}
+          isOpen={isInfoTooltipOpen}
+          onClose={handleClosePopup}
+          isSuccess={isSuccess}
         />
-        
       </div>
     </CurrentUserContext.Provider>
   );

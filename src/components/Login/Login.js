@@ -79,8 +79,7 @@ function Login({ onLogin, isLoading, isLoginError, setIsLoginError }) {
           id="login-input-password"
           name="password"
           type="password"
-          minLength="6"
-          placeholder="Пароль"
+          placeholder="Введите пароль"
           onChange={handleInputChange}
           autoComplete={"off"}
           disabled={isLoading}

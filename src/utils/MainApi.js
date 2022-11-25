@@ -66,7 +66,7 @@ class MainApi {
       credentials: "include",
       headers: this._options.headers,
       body: JSON.stringify({
-        movieId: movie.id,
+        movieId: movie.movieId,
         nameRU: movie.nameRU,
         nameEN: movie.nameEN,
         country: movie.country,
