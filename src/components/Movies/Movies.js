@@ -140,8 +140,8 @@ function Movies({ isLoggedIn, savedMovies, handleAddMovies, handleDeleteMovies }
       ) : (
         ""
       )}
-      {!isSearchError &&
-      !isLoading &&
+      {!isLoading && !isSearchError
+       &&
       filterMovies.length === 0 &&
       isSearchActive ? (
         <div className="movies__error">{notFoundError}</div>
@@ -149,7 +149,7 @@ function Movies({ isLoggedIn, savedMovies, handleAddMovies, handleDeleteMovies }
         ""
       )}
 
-      {!isSearchError && !isLoading && filterMovies.length > 0 && (
+      {!isLoading && !isSearchError && filterMovies.length > 0 && (
         <MoviesCardList
           movies={limitMovies}
           handleAddMovies={handleAddMovies}

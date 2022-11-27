@@ -12,7 +12,7 @@ import Login from "../Login/Login";
 import PageNotFound from "../PageNotFound/PageNotFound";
 import InfoTooltip from "../InfoTooltip/InfoTooltip";
 import MainApi from "../../utils/MainApi";
-import { authorizerText, editUserText } from "../../utils/constants";
+import { authorizerErr, authorizerOk, authorizerText, editUserText } from "../../utils/constants";
 
 function App() {
   const navigate = useNavigate();
@@ -37,11 +37,15 @@ function App() {
         setCurrentUser(res);
         navigate("/movies");
         setIsLoginError("");
+        handleInfoTooltip();
+        setMessageText(authorizerOk);
       })
       .catch((err) => {
         setIsLoginError(err.message);
         setIsSuccess(false);
         console.log(err.message);
+        handleInfoTooltip();
+        setMessageText(authorizerErr)
       })
       .finally(() => setIsLoading(false));
   }
@@ -57,6 +61,8 @@ function App() {
         setIsRegisterError(err.message);
         setIsSuccess(false);
         console.log(err.message);
+        handleInfoTooltip();
+        setMessageText(authorizerErr)
       })
       .finally(() => setIsLoading(false));
   }
@@ -80,9 +86,11 @@ function App() {
     MainApi.editUser({ name, email })
       .then((res) => {
         setCurrentUser(res);
+        handleInfoTooltip();
         setMessageText(editUserText);
       })
       .catch((err) => {
+        handleInfoTooltip();
         setMessageText(err.message);
         console.log(err.message);
         if (err.message === authorizerText) {
@@ -118,6 +126,10 @@ function App() {
           onSignOut();
         }
       });
+  }
+
+  function handleInfoTooltip() {
+    setIsInfoTooltipOpen(true);
   }
 
   function handleClosePopup() {
