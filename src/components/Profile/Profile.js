@@ -60,6 +60,8 @@ function Profile({
                 disabled={isLoading}
                 autoComplete={"off"}
                 onChange={handleChange}
+                minLength="2"
+                maxLength="30"
                 required
                 placeholder="Укажите ваше имя"
               ></input>
