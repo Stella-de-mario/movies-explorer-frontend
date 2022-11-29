@@ -31,11 +31,8 @@ function Profile({
 
   useEffect(() => {
     setIsButtonDisabled(
-      !isValid ||
-        (values.name === currentUser.name &&
-          values.email === currentUser.email) ||
-        isLoading
-    );
+      !isValid || (values.name === currentUser.name &&
+          values.email === currentUser.email) || isLoading);
   }, [values, currentUser, isValid, isLoading]);
 
   return (
@@ -104,8 +101,8 @@ function Profile({
               disabled={isButtonDisabled || isLoading}
               className={`profile__button ${
                 isButtonDisabled
-                  ? "profile__button"
-                  : "profile__button_disabled"
+                  ? "profile__button_disabled"
+                  : "profile__button"
               }`}
             >
               {isLoading ? "Сохраняем..." : "Редактировать"}
