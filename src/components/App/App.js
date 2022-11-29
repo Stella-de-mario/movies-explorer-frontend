@@ -12,12 +12,19 @@ import Login from "../Login/Login";
 import PageNotFound from "../PageNotFound/PageNotFound";
 import InfoTooltip from "../InfoTooltip/InfoTooltip";
 import MainApi from "../../utils/MainApi";
-import { authorizerErr, authorizerOk, authorizerText, editUserText } from "../../utils/constants";
+import {
+  authorizerErr,
+  authorizerOk,
+  authorizerText,
+  editUserText,
+} from "../../utils/constants";
 
 function App() {
   const navigate = useNavigate();
 
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(
+    JSON.parse(localStorage.getItem("isLoggedIn"))
+  );
   const [currentUser, setCurrentUser] = useState({});
   const [isLoading, setIsLoading] = useState(false);
   const [isRegisterError, setIsRegisterError] = useState("");
@@ -45,7 +52,7 @@ function App() {
         setIsSuccess(false);
         console.log(err.message);
         handleInfoTooltip();
-        setMessageText(authorizerErr)
+        setMessageText(authorizerErr);
       })
       .finally(() => setIsLoading(false));
   }
@@ -62,7 +69,7 @@ function App() {
         setIsSuccess(false);
         console.log(err.message);
         handleInfoTooltip();
-        setMessageText(authorizerErr)
+        setMessageText(authorizerErr);
       })
       .finally(() => setIsLoading(false));
   }
@@ -213,7 +220,7 @@ function App() {
             path="/signup"
             element={
               isLoggedIn ? (
-                <Navigate to="/movies" />
+                <Navigate to="/" replace />
               ) : (
                 <Register
                   onRegister={onRegister}
@@ -228,7 +235,7 @@ function App() {
             path="/signin"
             element={
               isLoggedIn ? (
-                <Navigate to="/movies" />
+                <Navigate to="/" replace />
               ) : (
                 <Login
                   onLogin={onLogin}
