@@ -31,13 +31,16 @@ function Profile({
 
   useEffect(() => {
     setIsButtonDisabled(
-      !isValid || (values.name === currentUser.name &&
-          values.email === currentUser.email) || isLoading);
+      !isValid ||
+        (values.name === currentUser.name &&
+          values.email === currentUser.email) ||
+        isLoading
+    );
   }, [values, currentUser, isValid, isLoading]);
 
   return (
     <>
-    <Header page={'profile'} isLoggedIn={isLoggedIn} />
+      <Header page={"profile"} isLoggedIn={isLoggedIn} />
       <section className="profile">
         <form className="profile__form" onSubmit={handleSubmit} noValidate>
           <h2 className="profile__title">Привет, {currentUser.name}!</h2>
@@ -118,7 +121,11 @@ function Profile({
           </div>
         </form>
       </section>
-      <InfoTooltip isOpen={isOpen} onClose={onClose} messageText={messageText} />
+      <InfoTooltip
+        isOpen={isOpen}
+        onClose={onClose}
+        messageText={messageText}
+      />
     </>
   );
 }
