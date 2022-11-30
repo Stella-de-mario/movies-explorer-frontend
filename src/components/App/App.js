@@ -50,9 +50,13 @@ function App() {
       .catch((err) => {
         setIsLoginError(err.message);
         setIsSuccess(false);
-        console.log(err.message);
+        setIsLoggedIn(false);
         handleInfoTooltip();
         setMessageText(authorizerErr);
+        console.log(err.message);
+        if (err.message === authorizerText) {
+          onSignOut();
+        }
       })
       .finally(() => setIsLoading(false));
   }
@@ -67,9 +71,13 @@ function App() {
       .catch((err) => {
         setIsRegisterError(err.message);
         setIsSuccess(false);
-        console.log(err.message);
+        setIsLoggedIn(false);
         handleInfoTooltip();
         setMessageText(authorizerErr);
+        console.log(err.message);
+        if (err.message === authorizerText) {
+          onSignOut();
+        }
       })
       .finally(() => setIsLoading(false));
   }
