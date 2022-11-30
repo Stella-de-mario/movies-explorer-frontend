@@ -1,6 +1,6 @@
 import { useState, useCallback } from "react";
 import isEmail from "validator/lib/isEmail";
-import { regexName } from "../utils/constants";
+import { REGEX_NAME } from "../utils/constants";
 
 export function useForm(initialValues) {
   const [values, setValues] = useState(initialValues);
@@ -41,7 +41,7 @@ export function useForm(initialValues) {
             ...prevState,
             name: 'Поле "имя" должно содержать от 2 до 30 символов',
           }));
-        } else if (!regexName.test(value)) {
+        } else if (!REGEX_NAME.test(value)) {
           setErrors((prevState) => ({
             ...prevState,
             name:

@@ -1,7 +1,7 @@
 import React, { useEffect, useState} from "react";
 import { useLocation } from "react-router-dom";
 import "./MoviesCard.css";
-import { regexUrl } from "../../utils/constants";
+import { REGEX_URL } from "../../utils/constants";
 import { formatDuration } from '../../utils/formatDuration';
 
 function MoviesCard({ card, savedMovies, handleAddMovies, handleDeleteMovies }) {
@@ -10,7 +10,7 @@ function MoviesCard({ card, savedMovies, handleAddMovies, handleDeleteMovies }) 
 
   const [saveLikeMovie, setSaveLikeMovie] = useState(null);
 
-  const trailerLink = regexUrl.test(card.trailerLink) 
+  const trailerLink = REGEX_URL.test(card.trailerLink) 
   ? card.trailerLink
   : 'https://www.youtube.com';
 

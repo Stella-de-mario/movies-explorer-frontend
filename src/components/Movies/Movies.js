@@ -49,7 +49,6 @@ function Movies({ isLoggedIn, savedMovies, handleAddMovies, handleDeleteMovies }
             "searchMovies",
             JSON.stringify(filterMoviesArray)
           );
-          setIsSearchActive(false);
         })
         .catch((err) => {
           console.log(err);
@@ -73,16 +72,10 @@ function Movies({ isLoggedIn, savedMovies, handleAddMovies, handleDeleteMovies }
 
   function onFilterCheckbox() {
     isFilterActive
-      ? localStorage.setItem("filterActive", true)
-      : localStorage.removeItem("filterActive");
+      ? localStorage.removeItem("filterActive")
+      : localStorage.setItem("filterActive", true);
     setIsFilterActive((prevState) => !prevState);
   }
-
-  useEffect(() => {
-    isFilterActive
-      ? setFilterMovies(filterByDuration(searchMovies))
-      : setFilterMovies(searchMovies);
-  }, [isFilterActive, searchMovies]);
 
   function addMovies() {
     let added = isWidth > mediumWidthSize ? maxNumberCards : mediumNumberCards;
@@ -92,6 +85,14 @@ function Movies({ isLoggedIn, savedMovies, handleAddMovies, handleDeleteMovies }
       );
     });
   }
+
+  useEffect(() => {
+    if(isFilterActive) {
+     setFilterMovies(filterByDuration(searchMovies))
+    } else {
+      setFilterMovies(searchMovies);
+    }  
+  }, [isFilterActive, searchMovies]);
 
   useEffect(() => {
     let limited;
@@ -149,7 +150,7 @@ function Movies({ isLoggedIn, savedMovies, handleAddMovies, handleDeleteMovies }
         ""
       )}
 
-      {!isLoading && !isSearchError && filterMovies.length > 0 && (
+      {filterMovies.length > 0 && !isLoading && !isSearchError &&  (
         <MoviesCardList
           movies={limitMovies}
           handleAddMovies={handleAddMovies}
@@ -158,17 +159,15 @@ function Movies({ isLoggedIn, savedMovies, handleAddMovies, handleDeleteMovies }
         />
       )}
 
-      {limitMovies.length < filterMovies.length ? (
-        <button
+      {limitMovies.length < filterMovies.length && 
+        (<button
           className="movies-cards__button"
           type="button"
           onClick={addMovies}
         >
           Ещё
-        </button>
-      ) : (
-        ""
-      )}
+        </button>)
+       }
       <Footer />
     </section>
   );
