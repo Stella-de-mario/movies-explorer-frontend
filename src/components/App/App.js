@@ -52,7 +52,7 @@ function App() {
         setIsLoggedIn(false);
         handleInfoTooltip();
         setMessageText(authorizerErr);
-        if (err.code === 401) {
+        if (err.status === 401) {
           onSignOut();
         }
         console.log(err.message);
@@ -73,7 +73,7 @@ function App() {
         setIsLoggedIn(false);
         handleInfoTooltip();
         setMessageText(authorizerErr);
-        if (err.code === 401) {
+        if (err.status === 401) {
           onSignOut();
         }
         console.log(err.message);
@@ -106,7 +106,7 @@ function App() {
       .catch((err) => {
         handleInfoTooltip();
         setMessageText(err.message);
-        if (err.code === 401) {
+        if (err.status === 401) {
           onSignOut();
         }
         console.log(err.message);
@@ -121,7 +121,7 @@ function App() {
       })
       .catch((err) => {
         setIsSaveMovieError(true);
-        if (err.code === 401) {
+        if (err.status === 401) {
           onSignOut();
         }
         console.log(err.message);
@@ -137,7 +137,7 @@ function App() {
         });
       })
       .catch((err) => {
-        if (err.code === 401) {
+        if (err.status === 401) {
           onSignOut();
         }
         console.log(err.message);
