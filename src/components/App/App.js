@@ -161,8 +161,6 @@ function App() {
         })
         .catch((err) => {
           setIsSaveMovieError(true);
-          localStorage.clear();
-          navigate('/');
           console.log(err.message);
         });
     }
