@@ -15,7 +15,6 @@ import MainApi from "../../utils/MainApi";
 import {
   authorizerErr,
   authorizerOk,
-  authorizerText,
   editUserText,
 } from "../../utils/constants";
 
@@ -53,10 +52,10 @@ function App() {
         setIsLoggedIn(false);
         handleInfoTooltip();
         setMessageText(authorizerErr);
-        console.log(err.message);
-        if (err.message === authorizerText) {
+        if (err.code === 401) {
           onSignOut();
         }
+        console.log(err.message);
       })
       .finally(() => setIsLoading(false));
   }
@@ -74,10 +73,10 @@ function App() {
         setIsLoggedIn(false);
         handleInfoTooltip();
         setMessageText(authorizerErr);
-        console.log(err.message);
-        if (err.message === authorizerText) {
+        if (err.code === 401) {
           onSignOut();
         }
+        console.log(err.message);
       })
       .finally(() => setIsLoading(false));
   }
@@ -107,10 +106,10 @@ function App() {
       .catch((err) => {
         handleInfoTooltip();
         setMessageText(err.message);
-        console.log(err.message);
-        if (err.message === authorizerText) {
+        if (err.code === 401) {
           onSignOut();
         }
+        console.log(err.message);
       })
       .finally(() => setIsLoading(false));
   }
@@ -121,11 +120,13 @@ function App() {
         setSavedMovies([newMovie, ...savedMovies]);
       })
       .catch((err) => {
-        console.log(err.message);
-        if (err.message === authorizerText) {
+        setIsSaveMovieError(true);
+        if (err.code === 401) {
           onSignOut();
         }
-      });
+        console.log(err.message);
+      })
+      .finally(() => setIsLoading(false));
   }
 
   function handleDeleteMovies(movieId) {
@@ -136,11 +137,12 @@ function App() {
         });
       })
       .catch((err) => {
-        console.log(err.message);
-        if (err.message === authorizerText) {
+        if (err.code === 401) {
           onSignOut();
         }
-      });
+        console.log(err.message);
+      })
+      .finally(() => setIsLoading(false));
   }
 
   function handleInfoTooltip() {
@@ -159,7 +161,7 @@ function App() {
         })
         .catch((err) => {
           setIsSaveMovieError(true);
-          console.log(err);
+          console.log(err.message);
         });
     }
   }, [isLoggedIn, navigate]);
