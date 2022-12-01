@@ -52,10 +52,10 @@ function App() {
         setIsLoggedIn(false);
         handleInfoTooltip();
         setMessageText(authorizerErr);
+        console.log(err.message);
         if (err.status === 401) {
           onSignOut();
-        }
-        console.log(err.message);
+        }   
       })
       .finally(() => setIsLoading(false));
   }
@@ -73,10 +73,10 @@ function App() {
         setIsLoggedIn(false);
         handleInfoTooltip();
         setMessageText(authorizerErr);
+        console.log(err.message);
         if (err.status === 401) {
           onSignOut();
-        }
-        console.log(err.message);
+        }   
       })
       .finally(() => setIsLoading(false));
   }
@@ -106,10 +106,10 @@ function App() {
       .catch((err) => {
         handleInfoTooltip();
         setMessageText(err.message);
+        console.log(err.message);
         if (err.status === 401) {
           onSignOut();
-        }
-        console.log(err.message);
+        }   
       })
       .finally(() => setIsLoading(false));
   }
@@ -121,10 +121,10 @@ function App() {
       })
       .catch((err) => {
         setIsSaveMovieError(true);
+        console.log(err.message);
         if (err.status === 401) {
           onSignOut();
-        }
-        console.log(err.message);
+        }   
       })
       .finally(() => setIsLoading(false));
   }
@@ -137,10 +137,10 @@ function App() {
         });
       })
       .catch((err) => {
+        console.log(err.message);
         if (err.status === 401) {
           onSignOut();
-        }
-        console.log(err.message);
+        }    
       })
       .finally(() => setIsLoading(false));
   }
@@ -176,7 +176,9 @@ function App() {
         })
         .catch((err) => {
           setIsLoggedIn(false);
-          localStorage.removeItem("isLoggedIn");
+          setCurrentUser({});
+          localStorage.clear();
+          navigate('/');
           console.log(err.message);
         });
     }
