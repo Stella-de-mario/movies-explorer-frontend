@@ -1,0 +1,13 @@
+.logo {
+  max-width: 38px;
+  max-height: 38px;
+  cursor: pointer;
+}
+
+.logo {
+  transition: opacity 0.2s linear;
+}
+
+.logo__:hover {
+  opacity: 0.8;
+}

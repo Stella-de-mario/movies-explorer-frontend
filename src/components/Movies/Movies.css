@@ -1,0 +1,50 @@
+.movies {
+  padding: 0;
+  width: 100%;
+}
+
+.movies__error {
+  padding: 10px 0;
+  text-align: center;
+  color: #ee3465;
+  font-weight: 400;
+  font-size: 10px;
+  line-height: 12px;
+}
+
+.movies-cards__button {
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 15px;
+  margin: 0 auto;
+  display: block;
+  padding: 0;
+  width: 320px;
+  height: 36px;
+  color: #ffffff;
+  background-color: #202020;
+  cursor: pointer;
+  border: 1px solid #424242;
+  transition: opacity 0.2s linear;
+}
+
+.movies-.movies-cards__button {
+  opacity: 0.8;
+}
+@media screen and (max-width: 900px) {
+  .movies {
+    padding: 0 30px;
+  }
+}
+
+@media screen and (max-width: 500px) {
+  .movies {
+    padding: 0 10px;
+  }
+}
+
+@media screen and (max-width: 400px) {
+  .movies-cards__button {
+    width: 240px;
+  }
+}

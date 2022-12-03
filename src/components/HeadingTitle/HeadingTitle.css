@@ -1,0 +1,49 @@
+.heading__title {
+    margin: 0;
+    text-align: center;
+    font-weight: 400;
+    font-size: 50px;
+    line-height: 1.16;
+    letter-spacing: -0.04em;
+    color: #FFFFFF;  
+  }
+  
+  .heading__title_promo {
+    max-width: 730px;
+  }
+  
+  @media screen and (max-width: 780px) {
+    .heading__title {
+      font-size: 40px;
+      line-height: 1.3;
+    }
+  
+    .heading__title_promo {
+      max-width: 680px;
+    }
+  
+    .heading__title_techs {
+      font-size: 50px;
+      line-height: 1.16;
+    }
+  }
+  
+  @media screen and (max-width: 570px) {
+    .heading__title {
+      font-size: 29px;
+      line-height: 1.28;
+    }
+  
+    .heading__title_promo {
+      max-width: 292px;
+    }
+    .heading__title_techs {
+      font-size: 30px;
+      line-height: 1.2;
+    }
+  
+    .heading__title_about-me {
+      font-size: 30px;
+      line-height: 1.2;
+    }
+  }
