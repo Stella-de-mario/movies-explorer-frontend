@@ -1,6 +1,7 @@
 # movies-explorer-frontend
 
-## Frontend of the Movies explorer(Дипломная работа by Yandex.Practicum)
+## Frontend of the Movies explorer
+### Дипломная работа by @Yandex.Practicum
 
 Функционал: 
 регистрация/авторизация, валидация полей, обращения к api, поиск фильмов, редактирование данных пользователя, сохранение фильмов и др.
