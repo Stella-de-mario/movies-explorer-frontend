@@ -14,3 +14,10 @@
 - ES2015
 - React.js
 - Node.js (express.js)
+
+
+ссылка на проект https://www.figma.com/file/mzcpaiVryiyJgKPWSDTePp/Diploma-(Copy)?node-id=932%3A3407
+
+ссылка на пул реквест #2
+
+ссылка на готовый проект: http://diploma.irinavladi.nomoredomains.icu
